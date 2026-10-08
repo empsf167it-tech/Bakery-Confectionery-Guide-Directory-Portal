@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Sweet Symphony Menu — Explore our traditional sweets, breads, pastries, custom cakes, and event catering packages." />
+  <title>Services &amp; Portfolios — Sweet Symphony</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍰</text></svg>">
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/css/dark-mode.css" />
+  <link id="rtl-stylesheet" rel="stylesheet" href="../assets/css/rtl.css" disabled />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    .filter-bar { display:flex;gap:.75rem;flex-wrap:wrap;justify-content:center;margin-bottom:3rem; }
+    .filter-btn { padding:.6rem 1.4rem;border:2px solid var(--border);border-radius:var(--radius-full);font-weight:600;font-size:.9rem;color:var(--text-secondary);transition:var(--transition-bounce);background:var(--bg-card); }
+    .filter-btn:hover,.filter-btn.active { background:var(--primary);border-color:var(--primary);color:#fff;transform:translateY(-2px); }
+    .process-connector { display:none; }
+    @media(min-width:768px){
+      .steps-grid { position:relative; }
+      .steps-grid::before { content:'';position:absolute;top:30px;left:10%;right:10%;height:2px;background:linear-gradient(90deg,var(--primary),var(--accent));z-index:0; }
+      .step-card { position:relative;z-index:1; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header" id="header">
+  <nav class="nav-container">
+    <a href="../index.html" class="brand">
+      <div class="brand-logo">
+        <svg viewBox="16 26 68 54" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:33px; height:33px; display:block;">
+          <path d="M26 44Q28.5 44 28.5 41.5Q28.5 44 31 44Q28.5 44 28.5 46.5Q28.5 44 26 44Z" fill="#ffffff"/>
+          <path d="M20 54Q22.5 54 22.5 51.5Q22.5 54 25 54Q22.5 54 22.5 56.5Q22.5 54 20 54Z" fill="#ffffff"/>
+          <path d="M41 38Q43 38 43 36Q43 38 45 38Q43 38 43 40Q43 38 41 38Z" fill="#ffffff"/>
+          <path d="M55 38Q57 38 57 36Q57 38 59 38Q57 38 57 40Q57 38 55 38Z" fill="#ffffff"/>
+          <path d="M69 44Q71.5 44 71.5 41.5Q71.5 44 74 44Q71.5 44 71.5 46.5Q71.5 44 69 44Z" fill="#ffffff"/>
+          <path d="M75 54Q77.5 54 77.5 51.5Q77.5 54 80 54Q77.5 54 77.5 56.5Q77.5 54 75 54Z" fill="#ffffff"/>
+          <circle cx="37" cy="41" r="1" fill="#ffffff"/>
+          <circle cx="63" cy="41" r="1" fill="#ffffff"/>
+          <circle cx="32" cy="50" r="1" fill="#ffffff"/>
+          <circle cx="68" cy="50" r="1" fill="#ffffff"/>
+          <path d="M50 31C49 33 48.5 35 50 37.5C51.5 35 51 33 50 31Z" fill="#ffffff"/>
+          <path d="M50 38C48 40.5 45.5 42 49 44.5C52.5 42 52 40.5 50 38Z" fill="#ffffff"/>
+          <path d="M48 42C44.5 40 43 43.5 48.5 44.5Z" fill="#ffffff"/>
+          <path d="M52 42C55.5 40 57 43.5 51.5 44.5Z" fill="#ffffff"/>
+          <path d="M39 44C39 42.5 61 42.5 61 44V51.5C61 53.5 39 53.5 39 51.5Z" fill="#ffffff" fill-opacity="0.2" stroke="#ffffff" stroke-width="1.8"/>
+          <path d="M39 44C39 45.5 61 45.5 61 44" stroke="#ffffff" stroke-width="1.8"/>
+          <path d="M39.5 48.5C42.5 51 45.5 51 48.5 48.5C51.5 51 54.5 51 57.5 48.5C59.5 50 60.5 49.5 60.5 48.5" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+          <path d="M34.5 51C34.5 49 65.5 49 65.5 51V60.5C65.5 63 34.5 63 34.5 60.5Z" fill="#ffffff" fill-opacity="0.2" stroke="#ffffff" stroke-width="1.8"/>
+          <path d="M34.5 51C34.5 53 65.5 53 65.5 51" stroke="#ffffff" stroke-width="1.8"/>
+          <path d="M35 56.5C39 60 43.5 60 48 56.5C52.5 60 57 60 61 56.5C63.5 58.5 65 57.5 65 56.5" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+          <path d="M29.5 59.5C29.5 57 70.5 57 70.5 59.5V70C70.5 73.5 29.5 73.5 29.5 70Z" fill="#ffffff" fill-opacity="0.2" stroke="#ffffff" stroke-width="1.8"/>
+          <path d="M29.5 59.5C29.5 62 70.5 62 70.5 59.5" stroke="#ffffff" stroke-width="1.8"/>
+          <path d="M30 65C35 70 41 70 47.5 65C54 70 60 70 65 65C68 67.5 70 66.5 70 65" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+          <path d="M27 72C27 70 73 70 73 72C73 74.5 27 74.5 27 72Z" fill="#ffffff" fill-opacity="0.4" stroke="#ffffff" stroke-width="1.6"/>
+          <path d="M25 75C25 73 75 73 75 75C75 77.5 25 77.5 25 75Z" fill="#ffffff" fill-opacity="0.6" stroke="#ffffff" stroke-width="1.6"/>
+        </svg>
+      </div>
+      <span class="brand-name">Sweet <span>Symphony</span></span>
+    </a>
+    <ul class="nav-menu">
+      <li><a href="../index.html" class="nav-link">Home</a></li>
+      <li><a href="home2.html" class="nav-link">Bake Timelines</a></li>
+      <li><a href="about.html" class="nav-link">About</a></li>
+      <li><a href="services.html" class="nav-link active">Services</a></li>
+      <li><a href="blog.html" class="nav-link">Blog</a></li>
+      <li><a href="contact.html" class="nav-link">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="login.html" class="btn btn-primary btn-sm">Login</a>
+    </div>
+    <button class="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </nav>
+</header>
+
+<div class="mobile-menu" role="dialog" aria-modal="true">
+  <button class="mobile-close" aria-label="Close menu"><i class="fas fa-times"></i></button>
+  <a href="../index.html" class="nav-link">Home</a>
+  <a href="home2.html" class="nav-link">Bake Timelines</a>
+  <a href="about.html" class="nav-link">About</a>
+  <a href="services.html" class="nav-link active">Services</a>
+  <a href="blog.html" class="nav-link">Blog</a>
+  <a href="contact.html" class="nav-link">Contact</a>
+  <div class="mobile-menu-actions">
+    <a href="login.html" class="btn btn-primary">Login</a>
+  </div>
+</div>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-header-container">
+    <div class="page-header-content">
+      <h1>Our Services &amp; Menu</h1>
+      <p>Explore our full range of traditional Indian sweets, oven-fresh artisanal breads, pastries, and customized celebratory cakes.</p>
+    </div>
+    <div class="page-header-image">
+      <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=800" alt="Sweet Symphony Portfolios" />
+    </div>
+  </div>
+</div>
+
+<!-- ══ SECTION 1: ALL MENU SERVICES ══ -->
+<section class="section" aria-label="All services">
+  <div class="container">
+    <div class="text-center animate-on-scroll">
+      <span class="section-label">Portfolios</span>
+      <h2 class="section-title">Sweet Symphony Specialties</h2>
+      <p class="section-desc">Every single item is made fresh daily with hand-selected ingredients and authentic recipes.</p>
+    </div>
+
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">All Menu</button>
+      <button class="filter-btn" data-filter="wood">Traditional Sweets</button>
+      <button class="filter-btn" data-filter="steel">Breads &amp; Pastries</button>
+      <button class="filter-btn" data-filter="glass">Celebration Cakes</button>
+      <button class="filter-btn" data-filter="engineering">Custom Gifting</button>
+    </div>
+
+    <div class="classes-grid">
+      <!-- Wood 1 -->
+      <div class="class-card animate-on-scroll delay-1" data-category="wood">
+        <div class="class-card-img">
+          <img src="https://5.imimg.com/data5/SELLER/Default/2022/8/MU/PB/WH/4866460/ac3a9248-500x500.jpg" alt="Bespoke Kaju Katli &amp; Sweets" loading="lazy" />
+          <span class="class-badge">Traditional</span>
+        </div>
+        <div class="class-card-body">
+          <h3>Bespoke Kaju Katli &amp; Sweets</h3>
+          <p>Rich cashew fudge sweets flavored with pure green cardamom and decorated with silver leaf.</p>
+          <div class="class-meta">
+            <span><i class="fas fa-seedling"></i> Pure Cow Ghee</span>
+            <span><i class="fas fa-leaf"></i> Organic</span>
+            <span><i class="fas fa-check-circle"></i> Zero Preservatives</span>
+          </div>
+          <div class="class-level">
+            <div class="level-dot filled"></div>
+            <div class="level-dot filled"></div>
+            <div class="level-dot filled"></div>
+            <div class="level-dot"></div>
+            <div class="level-dot"></div>
+          </div>
+          <div class="class-footer">
+            <span class="class-price">Premium Sweets</span>
+            <a href="contact.html" class="btn btn-primary btn-sm">Order Now</a>
+          </div>
+        </div>
+      </div>
+      <!-- Wood 2 -->
+      <div class="class-card animate-on-scroll delay-2" data-category="wood">
+        <div class="class-card-img">
+          <img src="https://www.awesomecuisine.com/wp-content/uploads/2008/08/Motichoor-Ladoo.jpg" alt="Motichoor &amp; Ghee Laddoos" loading="lazy" />
+          <span class="class-badge">Heritage</span>
+        </div>
+        <div class="class-card-body">
+          <h3>Motichoor &amp; Ghee Laddoos</h3>
+          <p>Traditional gram flour pearls slow-fried in pure cow ghee, flavored with saffron, and shaped by hand.</p>
+          <div class="class-meta">
+            <span><i class="fas fa-hand-holding-heart"></i> Hand-rolled</span>
+            <span><i class="fas fa-tint"></i> Saffron Infused</span>
+            <span><i class="fas fa-seedling"></i> Pure Ghee</span>
+          </div>
+          <div class="class-level">
+            <div class="level-dot filled"></div>
+            <div class="level-dot filled"></div>
+            <div class="level-dot filled"></div>
+            <div class="level-dot filled"></div>
+            <div class="level-dot"></div>
+          </div>
+          <div class="class-footer">
+            <span class="class-price">Mithai Specials</span>
+            <a href="contact.html" class="btn btn-primary btn-sm">Order Now</a>
+          </div>
+        </div>
+      </div>
+      <!-- Wood 3 -->
+      <div class="class-card animate-on-scroll delay-3" data-category="wood">
+        <div class="class-card-img">
+          <img src="https://aartimadan.com/wp-content/uploads/2019/10/Instant-jalebi-4.jpg" alt="Crispy Saffron Jalebi" loading="lazy" />
+          <span class="class-badge">Live Prep</span>
+        </div>
+        <div class="class-card-body">
+          <h3>Crispy Saffron Jalebi</h3>
+          <p>Slow-fermented batter piping-hot fried and soaked in organic saffron-infused sugar syrup. Crispy and juicy.</p>
+          <div class="class-meta">
+            <span><i class="fas fa-fire"></i> Live Prep</span>
+            <span><i class="fas fa-seedling"></i> Pure Saffron</span>
+            <span><i class="fas fa-check-circle"></i> Organic Sugars</span>
+          </div>
+          <div class="class-level">
+            <div class="level-dot filled"></div>
+            <div class="level-dot filled"></div>
+            <div class="level-dot filled"></div>
+            <div class="level-dot filled"></div>
+            <div class="level-dot filled"></div>
+          </div>
+          <div class="class-footer">
+            <span class="class-price">Hot Confectionery</span>
+            <a href="contact.html" class="btn btn-primary btn-sm">Order Now</a>
+          </div>
+        </div>
+      </div>
+      <!-- Glass -->
+      <div class="class-card animate-on-scroll delay-1" data-category="glass">
+        <div class="class-card-img">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Home_made_sour_dough_bread.jpg/1280px-Home_made_sour_dough_bread.jpg?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=thumbnail" alt="Custom Celebration Crispy" loading="lazy" />
+          <span class="class-badge">Bespoke Theme</span>
+        </div>
+        <div class="class-card-body">
+          <h3>Custom Celebration Crispy</h3>
+          <p>Multi-tiered fresh cream cakes customized with sugar flowers, custom messages, and custom flavor choices.</p>
+          <div class="class-meta">
+            <span><i class="fas fa-birthday-cake"></i> Eggless Available</span>
+            <span><i class="fas fa-hand-holding-heart"></i>Detailed</span>
+            <span><i class="fas fa-palette"></i> Custom Flavors</span>
+          </div>
+          <div class="class-level">
+            <div class="level-dot filled"></div>
+            <div class="level-dot filled"></div>
+            <div class="level-dot filled"></div>
+            <div class="level-dot filled"></div>
+            <div class="level-dot filled"></div>
+          </div>
+          <div class="class-footer">
+            <span class="class-price">Custom Cakes</span>
+            <a href="contact.html" class="btn btn-primary btn-sm">Order Now</a>
+          </div>
+        </div>
+      </div>
+      <!-- Steel -->
+      <div class="class-card animate-on-scroll delay-2" data-category="steel">
+        <div class="class-card-img">
+          <img src="https://chiceats.com/sites/default/files/recipe/photo/sourdough-bread-149-1080x810.jpg" alt="Naturally Fermented Sourdough" loading="lazy" />
+          <span class="class-badge">Bakehouse Fresh</span>
+        </div>
+        <div class="class-card-body">
+          <h3>Naturally Fermented Sourdough</h3>
+          <p>Slow-fermented crusty sourdough bread loaf baked on stone-deck ovens with a perfect crumb and airy texture.</p>
+          <div class="class-meta">
+            <span><i class="fas fa-bread-slice"></i> Wild Yeast</span>
+            <span><i class="fas fa-fire"></i> Stone-Deck Oven</span>
+            <span><i class="fas fa-tint"></i> High Hydration</span>
+          </div>
+          <div class="class-level">
+            <div class="level-dot filled"></div>
+            <div class="level-dot filled"></div>
+            <div class="level-dot filled"></div>
+            <div class="level-dot"></div>
+            <div class="level-dot"></div>
+          </div>
+          <div class="class-footer">
+            <span class="class-price">Artisanal Bread</span>
+            <a href="contact.html" class="btn btn-primary btn-sm">Order Now</a>
+          </div>
+        </div>
+      </div>
+      <!-- Engineering -->
+      <div class="class-card animate-on-scroll delay-3" data-category="engineering">
+        <div class="class-card-img">
+          <img src="https://sindhidryfruits.live/cdn/shop/files/WhatsApp_Image_2024-09-14_at_4.21.39_PM_2.jpg?v=1749722684&width=3840" alt="Premium Gift Box hampers" loading="lazy" />
+          <span class="class-badge">Festive Packaging</span>
+        </div>
+        <div class="class-card-body">
+          <h3>Premium Gift Box Hampers</h3>
+          <p>Curated luxury packaging boxes filled with traditional sweets, artisanal cookies, chocolates greeting cards.</p>
+          <div class="class-meta">
+            <span><i class="fas fa-gift"></i> Custom Branding</span>
+            <span><i class="fas fa-box-open"></i> Premium</span>
+            <span><i class="fas fa-globe"></i> Eco-Friendly</span>
+          </div>
+          <div class="class-level">
+            <div class="level-dot filled"></div>
+            <div class="level-dot filled"></div>
+            <div class="level-dot"></div>
+            <div class="level-dot"></div>
+            <div class="level-dot"></div>
+          </div>
+          <div class="class-footer">
+            <span class="class-price">Gift Hampers</span>
+            <a href="contact.html" class="btn btn-primary btn-sm">Order Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SECTION 2: CUSTOM ORDER PLANS ══ -->
+<section class="section bg-secondary-section" aria-label="Consultation packages">
+  <div class="container">
+    <div class="text-center animate-on-scroll" style="margin-bottom:2.5rem;">
+      <span class="section-label">Catering &amp; Special Plans</span>
+      <h2 class="section-title">Sweet Packages</h2>
+      <p class="section-desc">From custom wedding spreads to corporate hampers — choose the package that fits your celebration scale.</p>
+    </div>
+    <div class="packages-grid">
+      <!-- Package 1 -->
+      <div class="package-card animate-on-scroll delay-1">
+        <h3 class="package-name">Cake Tasting Package</h3>
+        <div class="package-price"><sup>₹</sup>999<sub>/session</sub></div>
+        <p class="package-desc">Ideal for cake tasting and custom design consultation.</p>
+        <ul class="package-features">
+          <li><i class="fas fa-check"></i> 90-minute design &amp; flavor review</li>
+          <li><i class="fas fa-check"></i> 3 custom sketch concepts</li>
+          <li><i class="fas fa-check"></i> Ingredient &amp; flavor consultation</li>
+          <li><i class="fas fa-check"></i> Custom taste sample plate</li>
+          <li><i class="fas fa-check"></i> Allergy-friendly alternatives</li>
+        </ul>
+        <a href="contact.html" class="btn btn-secondary" style="width:100%;justify-content:center;">Book Package</a>
+      </div>
+      <!-- Package 2 -->
+      <div class="package-card featured animate-on-scroll delay-2">
+        <span class="package-badge">Most Popular</span>
+        <h3 class="package-name">Festive Gift Box Curation</h3>
+        <div class="package-price"><sup>₹</sup>9,999<sub>/event</sub></div>
+        <p class="package-desc">Perfect for corporate events requiring custom branded packaging.</p>
+        <ul class="package-features">
+          <li><i class="fas fa-check"></i> Custom ribbon &amp; logo layouts</li>
+          <li><i class="fas fa-check"></i> Greeting card design inserts</li>
+          <li><i class="fas fa-check"></i> Flavor pairing and curation</li>
+          <li><i class="fas fa-check"></i> Sample box preview delivery</li>
+          <li><i class="fas fa-check"></i> Multi-box transit logistics</li>
+        </ul>
+        <a href="contact.html" class="btn btn-primary" style="width:100%;justify-content:center;">Book Package</a>
+      </div>
+      <!-- Package 3 -->
+      <div class="package-card animate-on-scroll delay-3">
+        <h3 class="package-name">Grand Celebration Catering</h3>
+        <div class="package-price"><sup>₹</sup>49,999<sub>/event</sub></div>
+        <p class="package-desc">Full dessert table design &amp; live station coordination.</p>
+        <ul class="package-features">
+          <li><i class="fas fa-check"></i> Dessert table conceptual layout</li>
+          <li><i class="fas fa-check"></i> Live hot sweet counters (Jalebi)</li>
+          <li><i class="fas fa-check"></i> Professional serving staff</li>
+          <li><i class="fas fa-check"></i> Handcrafted tier wedding cake</li>
+          <li><i class="fas fa-check"></i> High-volume box delivery</li>
+        </ul>
+        <a href="contact.html" class="btn btn-secondary" style="width:100%;justify-content:center;">Book Package</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SECTION 3: TRIAL BANNER / FOOTER ══ -->
+<section class="cta-banner"><div class="container">
+  <span class="section-label" style="color:var(--accent)">Complimentary Tasting</span>
+  <h2>Discuss Your Event with a Master Chef</h2>
+  <p>Send us your event size and theme details. We will provide a free initial flavor assessment and design suggestion.</p>
+  <div class="cta-actions"><a href="contact.html" class="btn btn-accent btn-lg"><i class="fas fa-calendar-check"></i> Request Free Tasting</a><a href="contact.html" class="btn btn-ghost btn-lg"><i class="fas fa-envelope"></i> Speak with a Baker</a></div>
+</div></section>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="../index.html" class="brand" style="text-decoration: none; margin-bottom: 1.5rem; display: inline-flex; align-items: center;">
+        <div class="brand-logo">
+          <svg viewBox="16 26 68 54" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:33px; height:33px; display:block;">
+            <path d="M26 44Q28.5 44 28.5 41.5Q28.5 44 31 44Q28.5 44 28.5 46.5Q28.5 44 26 44Z" fill="#ffffff"/>
+            <path d="M20 54Q22.5 54 22.5 51.5Q22.5 54 25 54Q22.5 54 22.5 56.5Q22.5 54 20 54Z" fill="#ffffff"/>
+            <path d="M41 38Q43 38 43 36Q43 38 45 38Q43 38 43 40Q43 38 41 38Z" fill="#ffffff"/>
+            <path d="M55 38Q57 38 57 36Q57 38 59 38Q57 38 57 40Q57 38 55 38Z" fill="#ffffff"/>
+            <path d="M69 44Q71.5 44 71.5 41.5Q71.5 44 74 44Q71.5 44 71.5 46.5Q71.5 44 69 44Z" fill="#ffffff"/>
+            <path d="M75 54Q77.5 54 77.5 51.5Q77.5 54 80 54Q77.5 54 77.5 56.5Q77.5 54 75 54Z" fill="#ffffff"/>
+            <circle cx="37" cy="41" r="1" fill="#ffffff"/>
+            <circle cx="63" cy="41" r="1" fill="#ffffff"/>
+            <circle cx="32" cy="50" r="1" fill="#ffffff"/>
+            <circle cx="68" cy="50" r="1" fill="#ffffff"/>
+            <path d="M50 31C49 33 48.5 35 50 37.5C51.5 35 51 33 50 31Z" fill="#ffffff"/>
+            <path d="M50 38C48 40.5 45.5 42 49 44.5C52.5 42 52 40.5 50 38Z" fill="#ffffff"/>
+            <path d="M48 42C44.5 40 43 43.5 48.5 44.5Z" fill="#ffffff"/>
+            <path d="M52 42C55.5 40 57 43.5 51.5 44.5Z" fill="#ffffff"/>
+            <path d="M39 44C39 42.5 61 42.5 61 44V51.5C61 53.5 39 53.5 39 51.5Z" fill="#ffffff" fill-opacity="0.2" stroke="#ffffff" stroke-width="1.8"/>
+            <path d="M39 44C39 45.5 61 45.5 61 44" stroke="#ffffff" stroke-width="1.8"/>
+            <path d="M39.5 48.5C42.5 51 45.5 51 48.5 48.5C51.5 51 54.5 51 57.5 48.5C59.5 50 60.5 49.5 60.5 48.5" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+            <path d="M34.5 51C34.5 49 65.5 49 65.5 51V60.5C65.5 63 34.5 63 34.5 60.5Z" fill="#ffffff" fill-opacity="0.2" stroke="#ffffff" stroke-width="1.8"/>
+            <path d="M34.5 51C34.5 53 65.5 53 65.5 51" stroke="#ffffff" stroke-width="1.8"/>
+            <path d="M35 56.5C39 60 43.5 60 48 56.5C52.5 60 57 60 61 56.5C63.5 58.5 65 57.5 65 56.5" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+            <path d="M29.5 59.5C29.5 57 70.5 57 70.5 59.5V70C70.5 73.5 29.5 73.5 29.5 70Z" fill="#ffffff" fill-opacity="0.2" stroke="#ffffff" stroke-width="1.8"/>
+            <path d="M29.5 59.5C29.5 62 70.5 62 70.5 59.5" stroke="#ffffff" stroke-width="1.8"/>
+            <path d="M30 65C35 70 41 70 47.5 65C54 70 60 70 65 65C68 67.5 70 66.5 70 65" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+            <path d="M27 72C27 70 73 70 73 72C73 74.5 27 74.5 27 72Z" fill="#ffffff" fill-opacity="0.4" stroke="#ffffff" stroke-width="1.6"/>
+            <path d="M25 75C25 73 75 73 75 75C75 77.5 25 77.5 25 75Z" fill="#ffffff" fill-opacity="0.6" stroke="#ffffff" stroke-width="1.6"/>
+          </svg>
+        </div>
+        <span class="brand-name">Sweet <span>Symphony</span></span>
+      </a>
+      <p class="footer-desc">Handcrafting traditional Indian sweets, premium baked goods, custom celebration cakes, and exquisite gift boxes made fresh daily.</p>
+      <div class="social-links">
+        <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social-link" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="#" class="social-link" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+      </div>
+    </div>
+    <div><h4 class="footer-heading">Explore</h4><ul class="footer-links"><li><a href="../index.html" class="footer-link">Home</a></li><li><a href="about.html" class="footer-link">About Us</a></li><li><a href="services.html" class="footer-link">Our Services &amp; Menu</a></li><li><a href="blog.html" class="footer-link">Bakehouse Insights</a></li><li><a href="contact.html" class="footer-link">Contact Us</a></li></ul></div>
+    <div><h4 class="footer-heading">Our Menu</h4><ul class="footer-links"><li><a href="services.html" class="footer-link">Traditional Sweets</a></li><li><a href="services.html" class="footer-link">Artisanal Bakery</a></li><li><a href="services.html" class="footer-link">Celebration Cakes</a></li><li><a href="services.html" class="footer-link">Festive Gift Boxes</a></li><li><a href="services.html" class="footer-link">Event Dessert Tables</a></li></ul></div>
+    <div><h4 class="footer-heading">Contact Info</h4><ul class="footer-links"><li><a href="tel:+919876543210" class="footer-link"><i class="fas fa-phone" style="width:16px;color:var(--accent)"></i> +91 98765 43210</a></li><li><a href="mailto:new@sweetsymphony.in" class="footer-link"><i class="fas fa-envelope" style="width:16px;color:var(--accent)"></i> new@sweetsymphony.in</a></li><li><a href="#" class="footer-link"><i class="fas fa-map-marker-alt" style="width:16px;color:var(--accent)"></i> Anna Nagar, Chennai</a></li><li><a href="#" class="footer-link"><i class="fas fa-clock" style="width:16px;color:var(--accent)"></i> Mon–Sun: 8AM–9PM</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><p>&copy; 2026 Sweet Symphony. All rights reserved.</p><div class="footer-bottom-links"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Hygiene Certification</a></div></div>
+</footer>
+<button class="back-to-top" aria-label="Back to top"><i class="fas fa-chevron-up"></i></button>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

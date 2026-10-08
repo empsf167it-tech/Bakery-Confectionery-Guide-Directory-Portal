@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Sweet Symphony Blog — Baking guides, traditional sweet recipes, client case studies, and bakehouse insights." />
+  <title>Insights &amp; Blog — Sweet Symphony</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍰</text></svg>">
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/css/dark-mode.css" />
+  <link id="rtl-stylesheet" rel="stylesheet" href="../assets/css/rtl.css" disabled />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    .blog-filter { display:flex;gap:.75rem;flex-wrap:wrap;justify-content:center;margin-bottom:3rem; }
+    .blog-filter-btn { padding:.5rem 1.3rem;border:2px solid var(--border);border-radius:var(--radius-full);font-weight:500;font-size:.85rem;color:var(--text-secondary);transition:var(--transition-bounce);background:var(--bg-card); }
+    .blog-filter-btn:hover,.blog-filter-btn.active { background:var(--primary);border-color:var(--primary);color:#fff;transform:translateY(-2px); }
+    .featured-post { display:grid;grid-template-columns:1fr;gap:2rem;margin-bottom:4rem;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-xl);overflow:hidden; }
+    @media(min-width:1025px){ .featured-post { grid-template-columns:1.5fr 1fr; } }
+    .featured-post-img { height:320px;overflow:hidden; }
+    @media(min-width:768px){ .featured-post-img { height:420px; } }
+    @media(min-width:1024px){ .featured-post-img { height:480px; } }
+    @media(min-width:1025px){ .featured-post-img { height:100%; } }
+    .featured-post-img img { width:100%;height:100%;object-fit:cover;transition:transform .5s ease; }
+    .featured-post:hover .featured-post-img img { transform:scale(1.05); }
+    .featured-post-body { padding:2.5rem;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center; }
+    .sidebar-card { background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.75rem;margin-bottom:1.5rem; }
+    .sidebar-card h4 { margin-bottom:1.25rem;font-size:1.1rem; }
+    .recent-post { display:flex;gap:1rem;padding:.75rem 0;border-bottom:1px solid var(--border);transition:var(--transition); }
+    .recent-post:last-child { border-bottom:none; }
+    .recent-post:hover { padding-left:.5rem; }
+    .recent-post-img { width:64px;height:64px;border-radius:var(--radius-sm);overflow:hidden;flex-shrink:0; }
+    .recent-post-img img { width:100%;height:100%;object-fit:cover; }
+    .recent-post-title { font-weight:500;font-size:.88rem;margin-bottom:.3rem;transition:var(--transition); }
+    .recent-post:hover .recent-post-title { color:var(--primary); }
+    .recent-post-date { font-size:.78rem;color:var(--text-light); }
+    .tags { display:flex;flex-wrap:wrap;gap:.5rem; }
+    .tag-pill { padding:.3rem .9rem;background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-full);font-size:.8rem;color:var(--text-secondary);transition:var(--transition-bounce);cursor:pointer; }
+    .tag-pill:hover { background:var(--primary);border-color:var(--primary);color:#fff;transform:scale(1.05); }
+    .main-blog-grid { display:grid;grid-template-columns:1fr;gap:3rem; }
+    @media(min-width:1024px){
+      .main-blog-grid { grid-template-columns:2fr 1fr; }
+      .blog-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media(max-width:1023px){
+      .main-blog-grid > aside {
+        order: -1;
+      }
+    }
+    @media(max-width:360px) {
+      .section[aria-label="Newsletter"] form input,
+      .section[aria-label="Newsletter"] form button {
+        width: 100% !important;
+        max-width: 100% !important;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header" id="header">
+  <nav class="nav-container">
+    <a href="../index.html" class="brand">
+      <div class="brand-logo">
+        <svg viewBox="16 26 68 54" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:33px; height:33px; display:block;">
+          <path d="M26 44Q28.5 44 28.5 41.5Q28.5 44 31 44Q28.5 44 28.5 46.5Q28.5 44 26 44Z" fill="#ffffff"/>
+          <path d="M20 54Q22.5 54 22.5 51.5Q22.5 54 25 54Q22.5 54 22.5 56.5Q22.5 54 20 54Z" fill="#ffffff"/>
+          <path d="M41 38Q43 38 43 36Q43 38 45 38Q43 38 43 40Q43 38 41 38Z" fill="#ffffff"/>
+          <path d="M55 38Q57 38 57 36Q57 38 59 38Q57 38 57 40Q57 38 55 38Z" fill="#ffffff"/>
+          <path d="M69 44Q71.5 44 71.5 41.5Q71.5 44 74 44Q71.5 44 71.5 46.5Q71.5 44 69 44Z" fill="#ffffff"/>
+          <path d="M75 54Q77.5 54 77.5 51.5Q77.5 54 80 54Q77.5 54 77.5 56.5Q77.5 54 75 54Z" fill="#ffffff"/>
+          <circle cx="37" cy="41" r="1" fill="#ffffff"/>
+          <circle cx="63" cy="41" r="1" fill="#ffffff"/>
+          <circle cx="32" cy="50" r="1" fill="#ffffff"/>
+          <circle cx="68" cy="50" r="1" fill="#ffffff"/>
+          <path d="M50 31C49 33 48.5 35 50 37.5C51.5 35 51 33 50 31Z" fill="#ffffff"/>
+          <path d="M50 38C48 40.5 45.5 42 49 44.5C52.5 42 52 40.5 50 38Z" fill="#ffffff"/>
+          <path d="M48 42C44.5 40 43 43.5 48.5 44.5Z" fill="#ffffff"/>
+          <path d="M52 42C55.5 40 57 43.5 51.5 44.5Z" fill="#ffffff"/>
+          <path d="M39 44C39 42.5 61 42.5 61 44V51.5C61 53.5 39 53.5 39 51.5Z" fill="#ffffff" fill-opacity="0.2" stroke="#ffffff" stroke-width="1.8"/>
+          <path d="M39 44C39 45.5 61 45.5 61 44" stroke="#ffffff" stroke-width="1.8"/>
+          <path d="M39.5 48.5C42.5 51 45.5 51 48.5 48.5C51.5 51 54.5 51 57.5 48.5C59.5 50 60.5 49.5 60.5 48.5" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+          <path d="M34.5 51C34.5 49 65.5 49 65.5 51V60.5C65.5 63 34.5 63 34.5 60.5Z" fill="#ffffff" fill-opacity="0.2" stroke="#ffffff" stroke-width="1.8"/>
+          <path d="M34.5 51C34.5 53 65.5 53 65.5 51" stroke="#ffffff" stroke-width="1.8"/>
+          <path d="M35 56.5C39 60 43.5 60 48 56.5C52.5 60 57 60 61 56.5C63.5 58.5 65 57.5 65 56.5" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+          <path d="M29.5 59.5C29.5 57 70.5 57 70.5 59.5V70C70.5 73.5 29.5 73.5 29.5 70Z" fill="#ffffff" fill-opacity="0.2" stroke="#ffffff" stroke-width="1.8"/>
+          <path d="M29.5 59.5C29.5 62 70.5 62 70.5 59.5" stroke="#ffffff" stroke-width="1.8"/>
+          <path d="M30 65C35 70 41 70 47.5 65C54 70 60 70 65 65C68 67.5 70 66.5 70 65" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+          <path d="M27 72C27 70 73 70 73 72C73 74.5 27 74.5 27 72Z" fill="#ffffff" fill-opacity="0.4" stroke="#ffffff" stroke-width="1.6"/>
+          <path d="M25 75C25 73 75 73 75 75C75 77.5 25 77.5 25 75Z" fill="#ffffff" fill-opacity="0.6" stroke="#ffffff" stroke-width="1.6"/>
+        </svg>
+      </div>
+      <span class="brand-name">Sweet <span>Symphony</span></span>
+    </a>
+    <ul class="nav-menu">
+      <li><a href="../index.html" class="nav-link">Home</a></li>
+      <li><a href="home2.html" class="nav-link">Bake Timelines</a></li>
+      <li><a href="about.html" class="nav-link">About</a></li>
+      <li><a href="services.html" class="nav-link">Services</a></li>
+      <li><a href="blog.html" class="nav-link active">Blog</a></li>
+      <li><a href="contact.html" class="nav-link">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="login.html" class="btn btn-primary btn-sm">Login</a>
+    </div>
+    <button class="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </nav>
+</header>
+
+<div class="mobile-menu" role="dialog" aria-modal="true">
+  <button class="mobile-close" aria-label="Close menu"><i class="fas fa-times"></i></button>
+  <a href="../index.html" class="nav-link">Home</a>
+  <a href="home2.html" class="nav-link">Bake Timelines</a>
+  <a href="about.html" class="nav-link">About</a>
+  <a href="services.html" class="nav-link">Services</a>
+  <a href="blog.html" class="nav-link active">Blog</a>
+  <a href="contact.html" class="nav-link">Contact</a>
+  <div class="mobile-menu-actions">
+    <a href="login.html" class="btn btn-primary">Login</a>
+  </div>
+</div>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-header-container">
+    <div class="page-header-content">
+      <h1>Bakehouse Insights</h1>
+      <p>Baking advice, traditional recipes, ingredient sourcing guides, and sweet ideas straight from our oven.</p>
+    </div>
+    <div class="page-header-image">
+      <img src="https://swagathfoods.com.au/cdn/shop/articles/img-table-of-sweets-002_swagath_foods.png?v=1777903958&width=1000" alt="Sweet Symphony Insights" />
+    </div>
+  </div>
+</div>
+
+<!-- ══ SECTION 2: BLOG GRID + SIDEBAR ══ -->
+<section class="section bg-secondary-section" aria-label="Blog posts">
+  <div class="container">
+    <div class="text-center animate-on-scroll" style="margin-bottom:2rem;">
+      <span class="section-label">All Articles</span>
+      <h2 class="section-title">Latest From the Bakehouse</h2>
+    </div>
+    <div class="blog-filter">
+      <button class="blog-filter-btn active" data-filter="all">All</button>
+      <button class="blog-filter-btn" data-filter="all">Baking Guides</button>
+      <button class="blog-filter-btn" data-filter="all">Chef Stories</button>
+      <button class="blog-filter-btn" data-filter="all">Ingredients</button>
+      <button class="blog-filter-btn" data-filter="all">Sweet Science</button>
+    </div>
+
+    <div class="main-blog-grid">
+      <!-- Posts -->
+      <div>
+        <div class="blog-grid">
+          <!-- Post 1 -->
+          <div class="blog-card animate-on-scroll delay-1" data-category="guides">
+            <div class="blog-card-img"><img src="https://melissaknorris.com/wp-content/uploads/2025/12/november-photos-38-scaled.jpg" alt="5 Sourdough Tips for the Perfect Crust" loading="lazy" /></div>
+            <div class="blog-card-body">
+              <div class="blog-meta"><span><i class="fas fa-calendar"></i> Dec 5, 2024</span><span><i class="fas fa-clock"></i> 5 min</span></div>
+              <h3>5 Sourdough Tips for the Perfect Crust</h3>
+              <p>Choosing between wheat varieties, autolyse timing, and hydration levels. What baking methods work best for high rise.</p>
+              <a href="#" class="blog-read-more">Read More <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+          <!-- Post 2 -->
+          <div class="blog-card animate-on-scroll delay-2" data-category="engineering">
+            <div class="blog-card-img"><img src="https://www.tastingtable.com/img/gallery/heres-the-exact-temperature-sugar-starts-to-caramelize/intro-1758467084.jpg" alt="The Science of Slow Sugar Caramelization" loading="lazy" /></div>
+            <div class="blog-card-body">
+              <div class="blog-meta"><span><i class="fas fa-calendar"></i> Nov 28, 2024</span><span><i class="fas fa-clock"></i> 6 min</span></div>
+              <h3>The Science of Slow Sugar Caramelization</h3>
+              <p>An in-depth look at sugar temperatures, chemistry reactions, and timing required for traditional fudge sweets.</p>
+              <a href="#" class="blog-read-more">Read More <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+          <!-- Post 3 -->
+          <div class="blog-card animate-on-scroll delay-1" data-category="cases">
+            <div class="blog-card-img"><img src="https://celesteyum.com/wp-content/uploads/2025/02/Keep-It-Simple-scaled-1.jpg" alt="How We Setup a 5-Tier Wedding Cake in 2 Hours" loading="lazy" /></div>
+            <div class="blog-card-body">
+              <div class="blog-meta"><span><i class="fas fa-calendar"></i> Nov 20, 2024</span><span><i class="fas fa-clock"></i> 4 min</span></div>
+              <h3>How We Setup a 5-Tier Wedding Cake in 2 Hours</h3>
+              <p>Case study detailing our insulated transit methods and on-site assembly tricks for grand wedding venues.</p>
+              <a href="#" class="blog-read-more">Read More <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+          
+          <!-- Post 5 -->
+          <div class="blog-card animate-on-scroll delay-1" data-category="engineering">
+            <div class="blog-card-img"><img src="https://www.ikeuchi.eu/wp-content/uploads/2025/05/vecteezy_rows-of-golden-brown-bread-rolls-fill-trays-in-a-bakery_53753552-scaled.jpg" alt="How Temperature Humidity Affects Pastry Crisping" loading="lazy" /></div>
+            <div class="blog-card-body">
+              <div class="blog-meta"><span><i class="fas fa-calendar"></i> Nov 05, 2024</span><span><i class="fas fa-clock"></i> 7 min</span></div>
+              <h3>How Temperature Humidity Affects Pastry Crisping</h3>
+              <p>Understanding room conditions, flour protein content, and lamination cooling steps when baking flaky croissants.</p>
+              <a href="#" class="blog-read-more">Read More <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Sidebar -->
+      <aside>
+        <div class="sidebar-card animate-on-scroll">
+          <h4>Search</h4>
+          <div style="position:relative;">
+            <input type="search" class="form-control" placeholder="Search articles..." aria-label="Search articles" />
+            <button style="position:absolute;right:1rem;top:50%;transform:translateY(-50%);color:var(--primary);" aria-label="Search"><i class="fas fa-search"></i></button>
+          </div>
+        </div>
+        <div class="sidebar-card animate-on-scroll delay-1">
+          <h4>Recent Posts</h4>
+          <div class="recent-post"><div class="recent-post-img"><img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=100" alt="Recent post" loading="lazy" /></div><div><div class="recent-post-title">Perfecting Sourdough Crust</div><div class="recent-post-date">Dec 5, 2024</div></div></div>
+          <div class="recent-post"><div class="recent-post-img"><img src="https://images.unsplash.com/photo-1587314168485-3236d6710814?q=80&w=100" alt="Recent post" loading="lazy" /></div><div><div class="recent-post-title">Sweet Caramelization Science</div><div class="recent-post-date">Nov 28, 2024</div></div></div>
+          <div class="recent-post"><div class="recent-post-img"><img src="https://images.unsplash.com/photo-1579372786545-d24232daf58c?q=80&w=100" alt="Recent post" loading="lazy" /></div><div><div class="recent-post-title">5-Tier Wedding Cake Setup</div><div class="recent-post-date">Nov 20, 2024</div></div></div>
+        </div>
+        <div class="sidebar-card animate-on-scroll delay-2">
+          <h4>Popular Tags</h4>
+          <div class="tags">
+            <span class="tag-pill">Traditional Sweets</span><span class="tag-pill">Artisanal Bread</span><span class="tag-pill">Custom Cakes</span><span class="tag-pill">Gifting Ideas</span><span class="tag-pill">Oven Settings</span><span class="tag-pill">Slow Fermentation</span><span class="tag-pill">Hygiene Codes</span></span>
+          </div>
+        </div>
+        <div class="sidebar-card animate-on-scroll delay-3" style="background:linear-gradient(135deg,var(--primary),var(--primary-light));border-color:transparent;">
+          <h4 style="color:#fff;margin-bottom:.75rem;">Custom Order Flavor Tasting</h4>
+          <p style="color:rgba(255,255,255,.85);font-size:.9rem;margin-bottom:1.25rem;">Plan your celebration menu with us. Send us your event guest count and theme details for a free customized dessert platter suggestion!</p>
+          <a href="contact.html" class="btn btn-white btn-sm" style="width:100%;justify-content:center;">Book Platter Suggestion</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SECTION 3: FAQ ══ -->
+<section class="section" aria-label="FAQ">
+  <div class="container" style="max-width:800px;">
+    <div class="text-center animate-on-scroll">
+      <span class="section-label">Baking &amp; Ordering</span>
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <p class="section-desc">Quick answers to custom cake ordering and event catering questions. Still not sure? Just drop us a message!</p>
+    </div>
+    <div style="margin-top:2rem;">
+      <div class="faq-item animate-on-scroll delay-1">
+        <div class="faq-question">Do you offer eggless or sugar-free options? <i class="fas fa-chevron-down"></i></div>
+        <div class="faq-answer"><p>Yes! We offer a full range of eggless baked goods and traditional sweets, and can prepare sugar-free options using natural sweeteners like stevia.</p></div>
+      </div>
+      <div class="faq-item animate-on-scroll delay-2">
+        <div class="faq-question">What is the typical lead time for custom cakes? <i class="fas fa-chevron-down"></i></div>
+        <div class="faq-answer"><p>Custom cakes require a minimum lead time of 3-5 days. For larger celebrations like weddings, we recommend booking 2-4 weeks in advance.</p></div>
+      </div>
+      <div class="faq-item animate-on-scroll delay-3">
+        <div class="faq-question">Do you collaborate directly with event planners? <i class="fas fa-chevron-down"></i></div>
+        <div class="faq-answer"><p>Absolutely. We routinely partner with event planners, corporate coordinators, and caterers. We provide custom dessert layout previews and match hampers to your theme.</p></div>
+      </div>
+      <div class="faq-item animate-on-scroll delay-4">
+        <div class="faq-question">Do you deliver custom tiered cakes to venues in Chennai? <i class="fas fa-chevron-down"></i></div>
+        <div class="faq-answer"><p>Yes. We provide temperature-controlled delivery and venue setup for multi-tiered cakes across Chennai, ensuring they arrive fresh and pristine.</p></div>
+      </div>
+      <div class="faq-item animate-on-scroll delay-5">
+        <div class="faq-question">What sweet packaging customization options do you offer? <i class="fas fa-chevron-down"></i></div>
+        <div class="faq-answer"><p>We offer premium boxes (12, 24, 36 pieces), custom logo labels, satin ribbons in your brand colors, and personalized cards for corporate and festive gifts.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SECTION 4: NEWSLETTER ══ -->
+<section class="section bg-secondary-section" aria-label="Newsletter">
+  <div class="container" style="max-width:700px;">
+    <div class="text-center animate-on-scroll">
+      <span class="section-label">Stay in the Loop</span>
+      <h2 class="section-title">Get Bakehouse Updates</h2>
+      <p class="section-desc">New product launches, traditional sweet recipes, baking guides, and custom hamper catalogs — delivered to your inbox.</p>
+      <form data-validate-form style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:2rem;">
+        <input type="email" class="form-control" placeholder="Enter your email address" data-validate="required,email" style="max-width:320px;" aria-label="Email address" />
+        <button type="submit" class="btn btn-primary btn-lg"><i class="fas fa-paper-plane"></i> Subscribe Free</button>
+      </form>
+      <p style="margin-top:1rem;font-size:.82rem;color:var(--text-light);">No spam, ever. Unsubscribe anytime. 🔒</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta-banner"><div class="container">
+  <span class="section-label" style="color:var(--accent)">See the Craftsmanship</span>
+  <h2>Visit Our Shop &amp; Bakery Studio</h2>
+  <p>Experience custom laddoos, French croissants, and multi-tier cake designs first-hand. Discuss your event layout with a master chef.</p>
+  <div class="cta-actions"><a href="contact.html" class="btn btn-accent btn-lg"><i class="fas fa-calendar-alt"></i> Schedule Shop Visit</a><a href="services.html" class="btn btn-ghost btn-lg"><i class="fas fa-compass"></i> View Our Menu</a></div>
+</div></section>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="../index.html" class="brand" style="text-decoration: none; margin-bottom: 1.5rem; display: inline-flex; align-items: center;">
+        <div class="brand-logo">
+          <svg viewBox="16 26 68 54" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:33px; height:33px; display:block;">
+            <path d="M26 44Q28.5 44 28.5 41.5Q28.5 44 31 44Q28.5 44 28.5 46.5Q28.5 44 26 44Z" fill="#ffffff"/>
+            <path d="M20 54Q22.5 54 22.5 51.5Q22.5 54 25 54Q22.5 54 22.5 56.5Q22.5 54 20 54Z" fill="#ffffff"/>
+            <path d="M41 38Q43 38 43 36Q43 38 45 38Q43 38 43 40Q43 38 41 38Z" fill="#ffffff"/>
+            <path d="M55 38Q57 38 57 36Q57 38 59 38Q57 38 57 40Q57 38 55 38Z" fill="#ffffff"/>
+            <path d="M69 44Q71.5 44 71.5 41.5Q71.5 44 74 44Q71.5 44 71.5 46.5Q71.5 44 69 44Z" fill="#ffffff"/>
+            <path d="M75 54Q77.5 54 77.5 51.5Q77.5 54 80 54Q77.5 54 77.5 56.5Q77.5 54 75 54Z" fill="#ffffff"/>
+            <circle cx="37" cy="41" r="1" fill="#ffffff"/>
+            <circle cx="63" cy="41" r="1" fill="#ffffff"/>
+            <circle cx="32" cy="50" r="1" fill="#ffffff"/>
+            <circle cx="68" cy="50" r="1" fill="#ffffff"/>
+            <path d="M50 31C49 33 48.5 35 50 37.5C51.5 35 51 33 50 31Z" fill="#ffffff"/>
+            <path d="M50 38C48 40.5 45.5 42 49 44.5C52.5 42 52 40.5 50 38Z" fill="#ffffff"/>
+            <path d="M48 42C44.5 40 43 43.5 48.5 44.5Z" fill="#ffffff"/>
+            <path d="M52 42C55.5 40 57 43.5 51.5 44.5Z" fill="#ffffff"/>
+            <path d="M39 44C39 42.5 61 42.5 61 44V51.5C61 53.5 39 53.5 39 51.5Z" fill="#ffffff" fill-opacity="0.2" stroke="#ffffff" stroke-width="1.8"/>
+            <path d="M39 44C39 45.5 61 45.5 61 44" stroke="#ffffff" stroke-width="1.8"/>
+            <path d="M39.5 48.5C42.5 51 45.5 51 48.5 48.5C51.5 51 54.5 51 57.5 48.5C59.5 50 60.5 49.5 60.5 48.5" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+            <path d="M34.5 51C34.5 49 65.5 49 65.5 51V60.5C65.5 63 34.5 63 34.5 60.5Z" fill="#ffffff" fill-opacity="0.2" stroke="#ffffff" stroke-width="1.8"/>
+            <path d="M34.5 51C34.5 53 65.5 53 65.5 51" stroke="#ffffff" stroke-width="1.8"/>
+            <path d="M35 56.5C39 60 43.5 60 48 56.5C52.5 60 57 60 61 56.5C63.5 58.5 65 57.5 65 56.5" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+            <path d="M29.5 59.5C29.5 57 70.5 57 70.5 59.5V70C70.5 73.5 29.5 73.5 29.5 70Z" fill="#ffffff" fill-opacity="0.2" stroke="#ffffff" stroke-width="1.8"/>
+            <path d="M29.5 59.5C29.5 62 70.5 62 70.5 59.5" stroke="#ffffff" stroke-width="1.8"/>
+            <path d="M30 65C35 70 41 70 47.5 65C54 70 60 70 65 65C68 67.5 70 66.5 70 65" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+            <path d="M27 72C27 70 73 70 73 72C73 74.5 27 74.5 27 72Z" fill="#ffffff" fill-opacity="0.4" stroke="#ffffff" stroke-width="1.6"/>
+            <path d="M25 75C25 73 75 73 75 75C75 77.5 25 77.5 25 75Z" fill="#ffffff" fill-opacity="0.6" stroke="#ffffff" stroke-width="1.6"/>
+          </svg>
+        </div>
+        <span class="brand-name">Sweet <span>Symphony</span></span>
+      </a>
+      <p class="footer-desc">Handcrafting traditional Indian sweets, premium baked goods, custom celebration cakes, and exquisite gift boxes made fresh daily.</p>
+      <div class="social-links">
+        <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social-link" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="#" class="social-link" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+      </div>
+    </div>
+    <div><h4 class="footer-heading">Explore</h4><ul class="footer-links"><li><a href="../index.html" class="footer-link">Home</a></li><li><a href="about.html" class="footer-link">About Us</a></li><li><a href="services.html" class="footer-link">Our Services &amp; Menu</a></li><li><a href="blog.html" class="footer-link">Bakehouse Insights</a></li><li><a href="contact.html" class="footer-link">Contact Us</a></li></ul></div>
+    <div><h4 class="footer-heading">Our Menu</h4><ul class="footer-links"><li><a href="services.html" class="footer-link">Traditional Sweets</a></li><li><a href="services.html" class="footer-link">Artisanal Bakery</a></li><li><a href="services.html" class="footer-link">Celebration Cakes</a></li><li><a href="services.html" class="footer-link">Festive Gift Boxes</a></li><li><a href="services.html" class="footer-link">Event Dessert Tables</a></li></ul></div>
+    <div><h4 class="footer-heading">Contact Info</h4><ul class="footer-links"><li><a href="tel:+919876543210" class="footer-link"><i class="fas fa-phone" style="width:16px;color:var(--accent)"></i> +91 98765 43210</a></li><li><a href="mailto:new@sweetsymphony.in" class="footer-link"><i class="fas fa-envelope" style="width:16px;color:var(--accent)"></i> new@sweetsymphony.in</a></li><li><a href="#" class="footer-link"><i class="fas fa-map-marker-alt" style="width:16px;color:var(--accent)"></i> Anna Nagar, Chennai</a></li><li><a href="#" class="footer-link"><i class="fas fa-clock" style="width:16px;color:var(--accent)"></i> Mon–Sun: 8AM–9PM</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><p>&copy; 2026 Sweet Symphony. All rights reserved.</p><div class="footer-bottom-links"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Hygiene Certification</a></div></div>
+</footer>
+<button class="back-to-top" aria-label="Back to top"><i class="fas fa-chevron-up"></i></button>
+<script src="../assets/js/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Sweet Symphony — Explore our daily baking schedules, custom catering timelines, and artisanal mithai collections." />
+  <title>Sweet Symphony — Bake Timelines</title>
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍰</text></svg>">
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/css/dark-mode.css" />
+  <link id="rtl-stylesheet" rel="stylesheet" href="../assets/css/rtl.css" disabled />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    /* Home2 specific: split hero */
+    .hero2 {
+      min-height: 80vh;
+      display: grid;
+      grid-template-columns: 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @media(min-width:1024px) {
+      .hero2 {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 1023px) {
+      .schedule-tabs {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        justify-content: flex-start;
+        padding: 0.5rem 1rem 12px 1rem;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: auto;
+        scrollbar-color: var(--primary) rgba(0, 0, 0, 0.05);
+      }
+
+      .schedule-tabs::-webkit-scrollbar {
+        height: 6px;
+        display: block;
+      }
+
+      .schedule-tabs::-webkit-scrollbar-thumb {
+        background-color: var(--primary);
+        border-radius: 3px;
+      }
+
+      .schedule-tabs::-webkit-scrollbar-track {
+        background-color: rgba(0, 0, 0, 0.05);
+        border-radius: 3px;
+      }
+
+      .tab-btn {
+        flex-shrink: 0;
+      }
+    }
+
+    @media(max-width:1023px) {
+      .hero2 {
+        margin-bottom: 3.5rem;
+      }
+    }
+
+    .hero2-content {
+      background: linear-gradient(135deg, var(--secondary) 0%, #242424 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: calc(var(--nav-height) + 3.5rem) 2rem 4.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero2-image {
+      position: relative;
+      min-height: 35vh;
+    }
+
+    @media(min-width:1024px) {
+      .hero2-image {
+        min-height: 80vh;
+      }
+    }
+
+    .hero2-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero2-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, var(--secondary) 0%, transparent 30%);
+    }
+
+    .floating-badge {
+      position: absolute;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.25rem;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      z-index: 2;
+      animation: floatBadge 4s ease-in-out infinite;
+    }
+
+    @keyframes floatBadge {
+
+      0%,
+      100% {
+        transform: translateY(0)
+      }
+
+      50% {
+        transform: translateY(-8px)
+      }
+    }
+
+    .floating-badge-1 {
+      bottom: 8rem;
+      left: 1rem;
+    }
+
+    .floating-badge-2 {
+      top: 8rem;
+      right: 1rem;
+    }
+
+    @media(min-width:1024px) {
+      .floating-badge-1 {
+        bottom: 8rem;
+        left: -4rem;
+      }
+
+      .floating-badge-2 {
+        top: 8rem;
+        right: 2rem;
+      }
+    }
+
+    .fb-icon {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .fb-text .label {
+      font-size: .75rem;
+      color: var(--text-light);
+      letter-spacing: .5px;
+    }
+
+    .fb-text .value {
+      font-weight: 500;
+      font-size: .95rem;
+      color: var(--text-primary);
+    }
+
+    /* Video section */
+    .video-section {
+      padding: 4rem 1.5rem;
+    }
+
+    /* Schedule */
+    .schedule-tabs {
+      display: flex;
+      gap: .75rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .tab-btn {
+      padding: .6rem 1.4rem;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-full);
+      font-weight: 500;
+      font-size: .9rem;
+      color: var(--text-secondary);
+      transition: var(--transition-bounce);
+    }
+
+    .tab-btn:hover,
+    .tab-btn.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+      animation: fadeIn .4s ease;
+    }
+
+    /* New Section: Fabrication Technology */
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2.5rem;
+      margin-top: 3rem;
+    }
+
+    .tech-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem 2rem;
+      text-align: center;
+      transition: var(--transition-bounce);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .tech-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--primary);
+    }
+
+    .tech-card-icon {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: #fff;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 16px rgba(194, 99, 27, 0.25);
+    }
+
+    .tech-card h3 {
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 0.75rem;
+    }
+
+    .tech-card p {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 1.25rem;
+    }
+
+    .tech-badge-container {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: auto;
+    }
+
+    .tech-badge {
+      background: var(--bg-secondary);
+      color: var(--primary-dark);
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(194, 99, 27, 0.15);
+    }
+
+    /* New Section: Structural Engineering & Deflection Control */
+    .eng-section {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .eng-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .eng-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-top: 4px solid var(--primary);
+      /* High-end engineering header bar accent */
+      border-radius: var(--radius-lg);
+      padding: 2.25rem 2rem;
+      transition: var(--transition-bounce);
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .eng-card:hover {
+      border-color: var(--primary);
+      border-top-color: var(--primary-light);
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-5px);
+    }
+
+    .eng-card-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1rem;
+    }
+
+    .eng-card-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(194, 99, 27, 0.1);
+      color: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.15rem;
+      flex-shrink: 0;
+    }
+
+    .eng-card h3 {
+      font-size: 1.20rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin: 0;
+    }
+
+    .eng-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+
+    .eng-list li {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      line-height: 1.5;
+    }
+
+    .eng-list li i {
+      color: var(--primary);
+      margin-top: 4px;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+      /* Prevents layout distortion */
+    }
+
+    /* Media query to center the 3rd card in grids only on 768px-1024px screens */
+    @media (min-width: 768px) and (max-width: 1024px) {
+
+      .tech-grid,
+      .eng-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .tech-grid .tech-card:nth-child(3) {
+        grid-column: span 2;
+        justify-self: center;
+        width: calc(50% - 1.25rem);
+        /* Matches exact width of 2nd card in 2.5rem gap grid */
+      }
+
+      .eng-grid .eng-card:nth-child(3) {
+        grid-column: span 2;
+        justify-self: center;
+        width: calc(50% - 1rem);
+        /* Matches exact width of 2nd card in 2.0rem gap grid */
+      }
+    }
+
+    /* New Section: Retrofit Engineering & Site Logistics */
+    .logistics-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3.5rem;
+      margin-top: 3.5rem;
+      align-items: center;
+    }
+
+    @media(min-width: 1024px) {
+      .logistics-grid {
+        grid-template-columns: 1.2fr 1fr;
+      }
+    }
+
+    .logistics-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .logistics-step {
+      display: flex;
+      gap: 1.5rem;
+      position: relative;
+    }
+
+    .logistics-step::before {
+      content: '';
+      position: absolute;
+      left: 20px;
+      top: 40px;
+      bottom: -30px;
+      width: 2px;
+      background: var(--border);
+    }
+
+    .logistics-step:last-child::before {
+      display: none;
+    }
+
+    .step-number {
+      width: 42px;
+      height: 42px;
+      background: var(--bg-secondary);
+      border: 2px solid var(--primary);
+      color: var(--primary-dark);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 1rem;
+      flex-shrink: 0;
+      z-index: 1;
+    }
+
+    .logistics-step.active .step-number {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .step-info h3 {
+      font-size: 1.15rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .step-info p {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .logistics-visual {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .visual-stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .visual-stat-icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(194, 99, 27, 0.1);
+      color: var(--primary);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    .visual-stat-info .stat-val {
+      font-size: 1.25rem;
+      font-weight: 550;
+      color: var(--text-primary);
+      display: block;
+      line-height: 1.2;
+    }
+
+    .visual-stat-info .stat-lbl {
+      font-size: 0.8rem;
+      color: var(--text-light);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <nav class="nav-container">
+      <a href="../index.html" class="brand">
+        <div class="brand-logo">
+          <svg viewBox="16 26 68 54" fill="none" xmlns="http://www.w3.org/2000/svg"
+            style="width:33px; height:33px; display:block;">
+            <path d="M26 44Q28.5 44 28.5 41.5Q28.5 44 31 44Q28.5 44 28.5 46.5Q28.5 44 26 44Z" fill="#ffffff" />
+            <path d="M20 54Q22.5 54 22.5 51.5Q22.5 54 25 54Q22.5 54 22.5 56.5Q22.5 54 20 54Z" fill="#ffffff" />
+            <path d="M41 38Q43 38 43 36Q43 38 45 38Q43 38 43 40Q43 38 41 38Z" fill="#ffffff" />
+            <path d="M55 38Q57 38 57 36Q57 38 59 38Q57 38 57 40Q57 38 55 38Z" fill="#ffffff" />
+            <path d="M69 44Q71.5 44 71.5 41.5Q71.5 44 74 44Q71.5 44 71.5 46.5Q71.5 44 69 44Z" fill="#ffffff" />
+            <path d="M75 54Q77.5 54 77.5 51.5Q77.5 54 80 54Q77.5 54 77.5 56.5Q77.5 54 75 54Z" fill="#ffffff" />
+            <circle cx="37" cy="41" r="1" fill="#ffffff" />
+            <circle cx="63" cy="41" r="1" fill="#ffffff" />
+            <circle cx="32" cy="50" r="1" fill="#ffffff" />
+            <circle cx="68" cy="50" r="1" fill="#ffffff" />
+            <path d="M50 31C49 33 48.5 35 50 37.5C51.5 35 51 33 50 31Z" fill="#ffffff" />
+            <path d="M50 38C48 40.5 45.5 42 49 44.5C52.5 42 52 40.5 50 38Z" fill="#ffffff" />
+            <path d="M48 42C44.5 40 43 43.5 48.5 44.5Z" fill="#ffffff" />
+            <path d="M52 42C55.5 40 57 43.5 51.5 44.5Z" fill="#ffffff" />
+            <path d="M39 44C39 42.5 61 42.5 61 44V51.5C61 53.5 39 53.5 39 51.5Z" fill="#ffffff" fill-opacity="0.2"
+              stroke="#ffffff" stroke-width="1.8" />
+            <path d="M39 44C39 45.5 61 45.5 61 44" stroke="#ffffff" stroke-width="1.8" />
+            <path d="M39.5 48.5C42.5 51 45.5 51 48.5 48.5C51.5 51 54.5 51 57.5 48.5C59.5 50 60.5 49.5 60.5 48.5"
+              stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" fill="none" />
+            <path d="M34.5 51C34.5 49 65.5 49 65.5 51V60.5C65.5 63 34.5 63 34.5 60.5Z" fill="#ffffff" fill-opacity="0.2"
+              stroke="#ffffff" stroke-width="1.8" />
+            <path d="M34.5 51C34.5 53 65.5 53 65.5 51" stroke="#ffffff" stroke-width="1.8" />
+            <path d="M35 56.5C39 60 43.5 60 48 56.5C52.5 60 57 60 61 56.5C63.5 58.5 65 57.5 65 56.5" stroke="#ffffff"
+              stroke-width="1.8" stroke-linecap="round" fill="none" />
+            <path d="M29.5 59.5C29.5 57 70.5 57 70.5 59.5V70C70.5 73.5 29.5 73.5 29.5 70Z" fill="#ffffff"
+              fill-opacity="0.2" stroke="#ffffff" stroke-width="1.8" />
+            <path d="M29.5 59.5C29.5 62 70.5 62 70.5 59.5" stroke="#ffffff" stroke-width="1.8" />
+            <path d="M30 65C35 70 41 70 47.5 65C54 70 60 70 65 65C68 67.5 70 66.5 70 65" stroke="#ffffff"
+              stroke-width="1.8" stroke-linecap="round" fill="none" />
+            <path d="M27 72C27 70 73 70 73 72C73 74.5 27 74.5 27 72Z" fill="#ffffff" fill-opacity="0.4" stroke="#ffffff"
+              stroke-width="1.6" />
+            <path d="M25 75C25 73 75 73 75 75C75 77.5 25 77.5 25 75Z" fill="#ffffff" fill-opacity="0.6" stroke="#ffffff"
+              stroke-width="1.6" />
+          </svg>
+        </div>
+        <span class="brand-name">Sweet <span>Symphony</span></span>
+      </a>
+      <ul class="nav-menu">
+        <li><a href="../index.html" class="nav-link">Home</a></li>
+        <li><a href="home2.html" class="nav-link active">Bake Timelines</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li><a href="services.html" class="nav-link">Services</a></li>
+        <li><a href="blog.html" class="nav-link">Blog</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="login.html" class="btn btn-primary btn-sm">Login</a>
+      </div>
+      <button class="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+    </nav>
+  </header>
+
+  <div class="mobile-menu" role="dialog" aria-modal="true">
+    <button class="mobile-close" aria-label="Close menu"><i class="fas fa-times"></i></button>
+    <a href="../index.html" class="nav-link">Home</a>
+    <a href="home2.html" class="nav-link active">Bake Timelines</a>
+    <a href="about.html" class="nav-link">About</a>
+    <a href="services.html" class="nav-link">Services</a>
+    <a href="blog.html" class="nav-link">Blog</a>
+    <a href="contact.html" class="nav-link">Contact</a>
+    <div class="mobile-menu-actions">
+      <a href="login.html" class="btn btn-primary">Login</a>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 1: SPLIT HERO ══ -->
+  <!-- ══ SECTION 1: HERO ══ -->
+  <section class="hero" aria-label="Hero alternate">
+    <div class="hero-bg">
+      <img src="https://visitsantaclarita.com/files/2018/08/sweet-and-treats-header.jpg"
+        alt="Delicious warm pastries and traditional sweets preparation in bakehouse" loading="eager" />
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-particles"></div>
+
+    <div class="hero-container">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <i class="fas fa-award"></i>
+          <span>Artisanal Bakers &amp; Confectioners</span>
+        </div>
+        <h1 class="hero-title">
+          Where Heritage Recipes
+          <span class="accent-text">Become Art</span>
+        </h1>
+        <p class="hero-desc">
+          Indulge in our exquisite collection of premium traditional sweets, hand-kneaded artisanal breads, and
+          custom-designed celebration cakes.
+        </p>
+        <div class="hero-actions">
+          <a href="contact.html" class="btn btn-primary btn-lg">
+            <i class="fas fa-shopping-basket"></i> Place Custom Order
+          </a>
+          <a href="#schedule" class="btn btn-ghost btn-lg">
+            <i class="fas fa-clock"></i> See Baking Timelines
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <span class="hero-stat-number"><span data-counter data-target="350" data-suffix="+">350+</span></span>
+            <span class="hero-stat-label">Custom Orders</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-number"><span data-counter data-target="3" data-suffix="">3</span></span>
+            <span class="hero-stat-label">Categories</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-number"><span data-counter data-target="12" data-suffix="">12</span></span>
+            <span class="hero-stat-label">Master Bakers</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SECTION 2: MATERIAL SPECIALTIES ══ -->
+  <section class="section" aria-label="Apparatus options">
+    <div class="container">
+      <div class="text-center animate-on-scroll">
+        <span class="section-label">Custom Specialties</span>
+        <h2 class="section-title">Three Categories, Infinite Flavors</h2>
+        <p class="section-desc">Our bakehouse coordinates organic ingredient sourcing, slow fermentation, and custom
+          theme designs to create gourmet masterpieces.</p>
+      </div>
+      <div class="apparatus-grid">
+        <!-- Wood -->
+        <div class="apparatus-card animate-on-scroll delay-1">
+          <img src="https://m.media-amazon.com/images/I/61gAFkCraCL._AC_UF894,1000_QL80_.jpg"
+            alt="Authentic traditional Indian Sweets Mithai" loading="lazy" />
+          <div class="apparatus-overlay">
+            <h3>Traditional Mithai</h3>
+            <p>Pure ghee laddoos, pedas, barfis, and dry fruit rolls made by hand to capture the authentic taste of
+              heritage recipes.</p>
+          </div>
+        </div>
+        <!-- Glass -->
+        <div class="apparatus-card animate-on-scroll delay-2">
+          <img
+            src="https://cdn.ohiomagazine.com/sitefinity/images/default-source/articles/2025/digital/bigham-artisan-bread-pastry/assorted-pastries-from-bigham-artisan-bread-pastry-(jessy-bigham-).jpg?sfvrsn=3b93b638_5"
+            alt="Artisanal Breads &amp; Pastries" loading="lazy" />
+          <div class="apparatus-overlay">
+            <h3>Breads &amp; Pastries</h3>
+            <p>Golden butter croissants, naturally fermented sourdough loaves, and sweet breakfast danishes baked fresh
+              daily.</p>
+          </div>
+        </div>
+        <!-- Steel -->
+        <div class="apparatus-card animate-on-scroll delay-3">
+          <img src="https://amintiri.in/cdn/shop/files/kunafafull.jpg?v=1778671824&width=1100"
+            alt="Celebration &amp; Custom Cakes" loading="lazy" />
+          <div class="apparatus-overlay">
+            <h3>Custom Cakes &amp; Gifts</h3>
+            <p>Custom-designed multi-tiered cakes, gourmet gift box curations, and event dessert catering for special
+              milestones.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ NEW SECTION: CULINARY TECHNOLOGY ══ -->
+  <section class="section" aria-label="Fabrication Technology">
+    <div class="container">
+      <div class="text-center animate-on-scroll">
+        <span class="section-label">Culinary Standards</span>
+        <h2 class="section-title">Our Bakehouse Sourcing &amp; Baking Standards</h2>
+        <p class="section-desc">We leverage time-honored slow fermentation, premium local ingredients, and precise
+          temperatures to deliver perfection in every bite.</p>
+      </div>
+      <div class="tech-grid">
+        <!-- CNC Wood Milling -->
+        <div class="tech-card animate-on-scroll delay-1">
+          <div class="tech-card-icon">
+            <i class="fas fa-seedling"></i>
+          </div>
+          <h3>Pure Cow Ghee &amp; Organic Sourcing</h3>
+          <p>Our traditional sweets are crafted using pure cow ghee, organic cardamoms, premium hand-cracked nuts, and
+            zero artificial colors or preservatives.</p>
+          <div class="tech-badge-container">
+            <span class="tech-badge">A2 Cow Ghee</span>
+            <span class="tech-badge">Organic Sweeteners</span>
+          </div>
+        </div>
+        <!-- Laser Metal Cutting -->
+        <div class="tech-card animate-on-scroll delay-2">
+          <div class="tech-card-icon">
+            <i class="fas fa-fire"></i>
+          </div>
+          <h3>Stone-Deck Oven Baking</h3>
+          <p>Our sourdough and baguettes are baked directly on stone deck ovens. We maintain 75%+ hydration levels for a
+            perfectly crispy crust and airy crumb.</p>
+          <div class="tech-badge-container">
+            <span class="tech-badge">Stone-Deck Oven</span>
+            <span class="tech-badge">75% Hydration Sourdough</span>
+          </div>
+        </div>
+        <!-- Glass Autoclave Lamination -->
+        <div class="tech-card animate-on-scroll delay-3">
+          <div class="tech-card-icon">
+            <i class="fas fa-hand-holding-heart"></i>
+          </div>
+          <h3>Artisanal Handcrafting</h3>
+          <p>From hand-rolled laddoos to custom sugar flowers on celebration cakes, our chefs detail every item with
+            artistic precision and passion.</p>
+          <div class="tech-badge-container">
+            <span class="tech-badge">Hand-Detailed Icing</span>
+            <span class="tech-badge">Small-Batch Prep</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SECTION 3: PROJECT PHASES & TIMELINES ══ -->
+  <section class="section bg-secondary-section" id="schedule" aria-label="Class schedule">
+    <div class="container">
+      <div class="text-center animate-on-scroll">
+        <span class="section-label">Bakehouse Timelines</span>
+        <h2 class="section-title">Baking &amp; Custom Ordering Timelines</h2>
+        <p class="section-desc">We coordinate everything from daily sourdough baking schedules to custom celebratory
+          cake prep and event delivery details.</p>
+      </div>
+      <div class="schedule-tabs">
+        <button class="tab-btn active" onclick="showTab('mon',this)">1. Fresh Daily</button>
+        <button class="tab-btn" onclick="showTab('tue',this)">2. Custom Cakes</button>
+        <button class="tab-btn" onclick="showTab('wed',this)">3. Festive Orders</button>
+        <button class="tab-btn" onclick="showTab('thu',this)">4. Bulk Catering</button>
+        <button class="tab-btn" onclick="showTab('fri',this)">5. Quality Check</button>
+        <button class="tab-btn" onclick="showTab('sat',this)">6. Delivery / Pickup</button>
+      </div>
+      <!-- Stage 1 -->
+      <div id="mon" class="tab-content active">
+        <div class="table-responsive">
+          <table class="schedule-table">
+            <thead>
+              <tr>
+                <th>Step / Phase</th>
+                <th>Deliverable / Activity</th>
+                <th>Lead Coordinator</th>
+                <th>Required Target Spec</th>
+                <th>Est. Duration</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>01. Sourdough Proving</td>
+                <td><span class="class-tag tag-pole">Slow fermentation prep</span></td>
+                <td>Kavya S.</td>
+                <td>Wild Yeast Culture</td>
+                <td>18-24 Hours</td>
+                <td><a href="contact.html" class="btn btn-primary btn-sm">Enquire</a></td>
+              </tr>
+              <tr>
+                <td>02. Morning Baking</td>
+                <td><span class="class-tag tag-silks">Pastries &amp; breads</span></td>
+                <td>Riya M.</td>
+                <td>Deck Oven / Steam</td>
+                <td>3-4 Hours</td>
+                <td><a href="contact.html" class="btn btn-primary btn-sm">Enquire</a></td>
+              </tr>
+              <tr>
+                <td>03. Fresh Mithai Prep</td>
+                <td><span class="class-tag tag-lyra">Daily sweets &amp; barfis</span></td>
+                <td>Pritha R.</td>
+                <td>Pure Ghee Recipes</td>
+                <td>4-5 Hours</td>
+                <td><a href="contact.html" class="btn btn-primary btn-sm">Enquire</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- Stage 2 -->
+      <div id="tue" class="tab-content">
+        <div class="table-responsive">
+          <table class="schedule-table">
+            <thead>
+              <tr>
+                <th>Step / Phase</th>
+                <th>Deliverable / Activity</th>
+                <th>Lead Coordinator</th>
+                <th>Required Target Spec</th>
+                <th>Est. Duration</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>01. Design Consultation</td>
+                <td><span class="class-tag tag-aerial">Theme, colors &amp; flavors</span></td>
+                <td>Kavya S.</td>
+                <td>Custom Reference Sketch</td>
+                <td>1 Day</td>
+                <td><a href="contact.html" class="btn btn-primary btn-sm">Book</a></td>
+              </tr>
+              <tr>
+                <td>02. Cake Baking &amp; Decor</td>
+                <td><span class="class-tag tag-silks">Sponges, filling &amp; icing</span></td>
+                <td>Riya M.</td>
+                <td>Hand-Detailed Detailing</td>
+                <td>2 Days</td>
+                <td><a href="contact.html" class="btn btn-primary btn-sm">Book</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- Stage 3 -->
+      <div id="wed" class="tab-content">
+        <div class="table-responsive">
+          <table class="schedule-table">
+            <thead>
+              <tr>
+                <th>Step / Phase</th>
+                <th>Deliverable / Activity</th>
+                <th>Lead Coordinator</th>
+                <th>Required Target Spec</th>
+                <th>Est. Duration</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>01. Curation &amp; Selection</td>
+                <td><span class="class-tag tag-lyra">Assorted sweet layouts</span></td>
+                <td>Sneha K.</td>
+                <td>Custom Platter Choice</td>
+                <td>1 Day</td>
+                <td><a href="contact.html" class="btn btn-primary btn-sm">Book</a></td>
+              </tr>
+              <tr>
+                <td>02. Box Packaging</td>
+                <td><span class="class-tag tag-pole">Ribbons &amp; card inserts</span></td>
+                <td>Sneha K.</td>
+                <td>Custom Luxury Box</td>
+                <td>1 Day</td>
+                <td><a href="contact.html" class="btn btn-primary btn-sm">Book</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- Stage 4 -->
+      <div id="thu" class="tab-content">
+        <div class="table-responsive">
+          <table class="schedule-table">
+            <thead>
+              <tr>
+                <th>Step / Phase</th>
+                <th>Deliverable / Activity</th>
+                <th>Lead Coordinator</th>
+                <th>Required Target Spec</th>
+                <th>Est. Duration</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>01. Sourcing Ingredients</td>
+                <td><span class="class-tag tag-aerial">Dry fruits, ghee &amp; saffron</span></td>
+                <td>Sneha K.</td>
+                <td>Organic Sourcing Cert</td>
+                <td>2-3 Days</td>
+                <td><a href="contact.html" class="btn btn-primary btn-sm">Book</a></td>
+              </tr>
+              <tr>
+                <td>02. Large-Batch Production</td>
+                <td><span class="class-tag tag-pole">Baking &amp; sweets at scale</span></td>
+                <td>Pritha R.</td>
+                <td>High-Volume QC Check</td>
+                <td>3-5 Days</td>
+                <td><a href="contact.html" class="btn btn-primary btn-sm">Book</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- Stage 5 -->
+      <div id="fri" class="tab-content">
+        <div class="table-responsive">
+          <table class="schedule-table">
+            <thead>
+              <tr>
+                <th>Step / Phase</th>
+                <th>Deliverable / Activity</th>
+                <th>Lead Coordinator</th>
+                <th>Required Target Spec</th>
+                <th>Est. Duration</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>01. Sensory Tasting</td>
+                <td><span class="class-tag tag-pole">Sensory checks &amp; consistency</span></td>
+                <td>Kavya S.</td>
+                <td>Chef taste validation</td>
+                <td>1 Day</td>
+                <td><a href="contact.html" class="btn btn-primary btn-sm">Book</a></td>
+              </tr>
+              <tr>
+                <td>02. Hygienic Sealing</td>
+                <td><span class="class-tag tag-silks">Air-tight wrap &amp; labeling</span></td>
+                <td>Sneha K.</td>
+                <td>Food-Grade Sealing</td>
+                <td>1 Day</td>
+                <td><a href="contact.html" class="btn btn-primary btn-sm">Book</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- Stage 6 -->
+      <div id="sat" class="tab-content">
+        <div class="table-responsive">
+          <table class="schedule-table">
+            <thead>
+              <tr>
+                <th>Step / Phase</th>
+                <th>Deliverable / Activity</th>
+                <th>Lead Coordinator</th>
+                <th>Required Target Spec</th>
+                <th>Est. Duration</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>01. Insulated Packing</td>
+                <td><span class="class-tag tag-pole">Cold-chain insulated crates</span></td>
+                <td>Sneha K.</td>
+                <td>Temperature &lt; 10°C</td>
+                <td>2-3 Hours</td>
+                <td><a href="contact.html" class="btn btn-primary btn-sm">Book</a></td>
+              </tr>
+              <tr>
+                <td>02. Venue Setup</td>
+                <td><span class="class-tag tag-silks">Live dessert table &amp; counters</span></td>
+                <td>Catering Crew</td>
+                <td>On-Site Display Setup</td>
+                <td>3-4 Hours</td>
+                <td><a href="contact.html" class="btn btn-primary btn-sm">Book</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ NEW SECTION: FOOD SAFETY & HYGIENE STANDARDS ══ -->
+  <section class="section eng-section" aria-label="Engineering Standards">
+    <div class="container">
+      <div class="text-center animate-on-scroll">
+        <span class="section-label">Culinary Rigor</span>
+        <h2 class="section-title">Quality Sourcing &amp; Hygiene Standards</h2>
+        <p class="section-desc">We bake beyond cosmetics. Every sweet and loaf undergoes intensive taste checks, hygiene
+          controls, and fresh ingredient curation.</p>
+      </div>
+      <div class="eng-grid">
+        <!-- Finite Element Analysis -->
+        <div class="eng-card animate-on-scroll delay-1">
+          <div class="eng-card-header">
+            <i class="fas fa-seedling eng-card-icon"></i>
+            <h3>Ingredient Sourcing &amp; Purity</h3>
+          </div>
+          <ul class="eng-list">
+            <li><i class="fas fa-check"></i> <span><strong>Ghee &amp; Dairy Purity:</strong> We test milk and ghee
+                purity to ensure absolute richness and no synthetic additives.</span></li>
+            <li><i class="fas fa-check"></i> <span><strong>Premium Saffron &amp; Spice:</strong> We source grade-A
+                Kashmiri saffron and organic cardamom pods for robust flavor.</span></li>
+            <li><i class="fas fa-check"></i> <span><strong>Premium Dry Fruits:</strong> Hand-picked cashews, almonds,
+                and pistachios checked for size and freshness.</span></li>
+          </ul>
+        </div>
+        <!-- Vibration & Resonance Control -->
+        <div class="eng-card animate-on-scroll delay-2">
+          <div class="eng-card-header">
+            <i class="fas fa-tint eng-card-icon"></i>
+            <h3>Moisture &amp; Temperature Control</h3>
+          </div>
+          <ul class="eng-list">
+            <li><i class="fas fa-check"></i> <span><strong>Proving Cabinets:</strong> Proving temperatures are tuned to
+                maintain optimal humidity levels for light, airy croissants.</span></li>
+            <li><i class="fas fa-check"></i> <span><strong>Deck Oven Moisture:</strong> High steam levels are injected
+                during the initial bake to lock in moisture and produce a glossy crust.</span></li>
+            <li><i class="fas fa-check"></i> <span><strong>Sweet Cooling Timelines:</strong> Sweets are cooled in
+                temperature-controlled rooms to achieve the perfect firm bite.</span></li>
+          </ul>
+        </div>
+        <!-- Safety & Compliance Codes -->
+        <div class="eng-card animate-on-scroll delay-3">
+          <div class="eng-card-header">
+            <i class="fas fa-shield-virus eng-card-icon"></i>
+            <h3>Food Safety &amp; Hygiene Codes</h3>
+          </div>
+          <ul class="eng-list">
+            <li><i class="fas fa-check"></i> <span><strong>FSSAI Compliance:</strong> We prep all items in sterile,
+                stainless steel kitchens matching international food safety standards.</span></li>
+            <li><i class="fas fa-check"></i> <span><strong>Allergen Labeling:</strong> All boxes clearly list
+                ingredients, nutritional details, and allergen warnings (gluten, dairy, nuts).</span></li>
+            <li><i class="fas fa-check"></i> <span><strong>Zero-Preservative Rule:</strong> We use organic sugar syrups
+                and natural cooling methods to ensure a healthy shelf life.</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SECTION 4: DESIGNERS & MAKERS ══ -->
+  <section class="section" aria-label="Instructors">
+    <div class="container">
+      <div class="text-center animate-on-scroll">
+        <span class="section-label">Meet the Team</span>
+        <h2 class="section-title">Our Master Chefs &amp; Bakers</h2>
+        <p class="section-desc">We combine traditional mithai expertise with classic French pastry techniques to deliver
+          delicious creations.</p>
+      </div>
+      <div class="team-grid">
+        <!-- Team 1 -->
+        <div class="team-card animate-on-scroll delay-1">
+          <div class="team-avatar">
+            <img src="https://spoonuniversity.com/wp-content/uploads/2024/07/Kavya_Raghavendhran.jpg"
+              alt="Kavya Sundaram" loading="lazy" />
+            <div class="team-social">
+              <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+          <h3 class="team-name">Kavya Sundaram</h3>
+          <div class="team-role">Founder &amp; Head Baker</div>
+          <p class="team-desc">15+ years of pastry and chocolate design. Expert in flavor profiling and custom
+            celebration cakes.</p>
+        </div>
+        <!-- Team 2 -->
+        <div class="team-card animate-on-scroll delay-2">
+          <div class="team-avatar">
+            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&q=80" alt="Riya Mehta"
+              loading="lazy" />
+            <div class="team-social">
+              <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+          <h3 class="team-name">Riya Mehta</h3>
+          <div class="team-role">Head Patissier &amp; Chocolatier</div>
+          <p class="team-desc">Specializes in French butter pastries, custom sugar work, and premium chocolate designs.
+          </p>
+        </div>
+        <!-- Team 3 -->
+        <div class="team-card animate-on-scroll delay-3">
+          <div class="team-avatar">
+            <img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=300&q=80" alt="Sneha Krishnan"
+              loading="lazy" />
+            <div class="team-social">
+              <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+          <h3 class="team-name">Sneha Krishnan</h3>
+          <div class="team-role">Operations &amp; Packaging Lead</div>
+          <p class="team-desc">Specializes in bulk order logistics, corporate gift packaging, and quality control
+            systems.</p>
+        </div>
+        <!-- Team 4 -->
+        <div class="team-card animate-on-scroll delay-4">
+          <div class="team-avatar">
+            <img
+              src="https://media.licdn.com/dms/image/v2/D4E03AQH4L6Onh6_agA/profile-displayphoto-shrink_200_200/B4EZTv8BwSHcAc-/0/1739192278577?e=2147483647&v=beta&t=LQDnzb8GDF0CAZBoMbcPYbpblqmUcqb-JejpLmuxrfc"
+              alt="Pritha Roy" loading="lazy" />
+            <div class="team-social">
+              <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+          <h3 class="team-name">Pritha Roy</h3>
+          <div class="team-role">Master Traditional Sweet Chef</div>
+          <p class="team-desc">Expert in traditional Indian mithai, slow-cooked mawa, and hand-rolled laddoos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ NEW SECTION: RETROFIT ENGINEERING & SITE LOGISTICS ══ -->
+  <section class="section" aria-label="Retrofit &amp; Site Logistics">
+    <div class="container">
+      <div class="text-center animate-on-scroll">
+        <span class="section-label">Seamless Delivery</span>
+        <h2 class="section-title">Event Setup &amp; Temperature Logistics</h2>
+        <p class="section-desc">We deliver to fit. Our transportation methodology ensures custom wedding cakes and
+          sweets arrive fresh and in perfect shape.</p>
+      </div>
+      <div class="logistics-grid">
+        <!-- Steps of Logistics -->
+        <div class="logistics-steps">
+          <div class="logistics-step active animate-on-scroll delay-1">
+            <div class="step-number">01</div>
+            <div class="step-info">
+              <h3>Temperature-Controlled Transit</h3>
+              <p>We deploy refrigerated trucks to keep fresh cream cakes and pastries chilled at a steady 8°C throughout
+                transit, preserving structure and taste.</p>
+            </div>
+          </div>
+          <div class="logistics-step animate-on-scroll delay-2">
+            <div class="step-number">02</div>
+            <div class="step-info">
+              <h3>Sturdy Structure Design</h3>
+              <p>Wedding cakes are built with internal support structures and modular layers, making them easy to
+                transport and assemble at the venue.</p>
+            </div>
+          </div>
+          <div class="logistics-step animate-on-scroll delay-3">
+            <div class="step-number">03</div>
+            <div class="step-info">
+              <h3>On-Site Venue Setup</h3>
+              <p>Our catering crew handles the complete venue setup, creating beautiful tiered cake displays and live
+                sweet station arrangements.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Visual Stats / Proof Cards -->
+        <div class="logistics-visual animate-on-scroll delay-2">
+          <div class="visual-stat-card">
+            <div class="visual-stat-icon">
+              <i class="fas fa-truck-loading"></i>
+            </div>
+            <div class="visual-stat-info">
+              <span class="stat-val">100% Freshness Guarantee</span>
+              <span class="stat-lbl">Insulated transit packaging for all deliveries</span>
+            </div>
+          </div>
+          <div class="visual-stat-card">
+            <div class="visual-stat-icon">
+              <i class="fas fa-history"></i>
+            </div>
+            <div class="visual-stat-info">
+              <span class="stat-val">Same-Day Venue Setup</span>
+              <span class="stat-lbl">Average event setup completed in under 2 hours</span>
+            </div>
+          </div>
+          <div class="visual-stat-card">
+            <div class="visual-stat-icon">
+              <i class="fas fa-drafting-compass"></i>
+            </div>
+            <div class="visual-stat-info">
+              <span class="stat-val">Pre-Ship QC Checks</span>
+              <span class="stat-lbl">Taste and presentation trial check before packing</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SECTION 5: CUSTOM ORDER PLANS ══ -->
+  <section class="section membership-section" aria-label="Membership plans">
+    <div class="container">
+      <div class="text-center animate-on-scroll">
+        <span class="section-label">Catering &amp; Special Plans</span>
+        <h2 class="section-title">Choose a Sweet Package</h2>
+        <p class="section-desc">Select a package that fits your event scale. All plans include customized boxes, flavor
+          tasting, and site logistics coordination.</p>
+      </div>
+      <div class="membership-grid">
+        <!-- Plan 1 -->
+        <div class="membership-card animate-on-scroll delay-1">
+          <div class="membership-icon"><i class="fas fa-birthday-cake"></i></div>
+          <h3 class="membership-name">Cake Tasting Plan</h3>
+          <div class="membership-price">₹999</div>
+          <div class="membership-period">per session</div>
+          <ul class="membership-features">
+            <li><i class="fas fa-check"></i> 90-minute flavor tasting</li>
+            <li><i class="fas fa-check"></i> 3 custom sketch concepts</li>
+            <li><i class="fas fa-check"></i> Ingredient &amp; allergy consult</li>
+            <li class="excluded"><i class="fas fa-times"></i> Custom event setup</li>
+            <li class="excluded"><i class="fas fa-times"></i> Corporate box branding</li>
+            <li class="excluded"><i class="fas fa-times"></i> Multi-tier structure assembly</li>
+          </ul>
+          <a href="contact.html" class="btn btn-secondary" style="width:100%;justify-content:center;">Book Plan</a>
+        </div>
+        <!-- Plan 2 -->
+        <div class="membership-card popular animate-on-scroll delay-2">
+          <span class="popular-badge">Most Popular</span>
+          <div class="membership-icon"><i class="fas fa-gift"></i></div>
+          <h3 class="membership-name">Gifting &amp; Branding</h3>
+          <div class="membership-price">₹9,999</div>
+          <div class="membership-period">per event</div>
+          <ul class="membership-features">
+            <li><i class="fas fa-check"></i> Custom ribbon &amp; logo layouts</li>
+            <li><i class="fas fa-check"></i> Greeting card design inserts</li>
+            <li><i class="fas fa-check"></i> Flavor pairing &amp; curation</li>
+            <li><i class="fas fa-check"></i> Sample box preview delivery</li>
+            <li><i class="fas fa-check"></i> Multi-box transit logistics</li>
+            <li class="excluded"><i class="fas fa-times"></i> On-site serving staff</li>
+          </ul>
+          <a href="contact.html" class="btn btn-primary" style="width:100%;justify-content:center;">Book Plan</a>
+        </div>
+        <!-- Plan 3 -->
+        <div class="membership-card animate-on-scroll delay-3">
+          <div class="membership-icon"><i class="fas fa-utensils"></i></div>
+          <h3 class="membership-name">Grand Event Catering</h3>
+          <div class="membership-price">₹49,999</div>
+          <div class="membership-period">per event</div>
+          <ul class="membership-features">
+            <li><i class="fas fa-check"></i> Dessert table layout design</li>
+            <li><i class="fas fa-check"></i> Live sweet counters (Jalebi)</li>
+            <li><i class="fas fa-check"></i> Professional serving staff</li>
+            <li><i class="fas fa-check"></i> Handcrafted tier wedding cake</li>
+            <li><i class="fas fa-check"></i> High-volume box delivery</li>
+            <li><i class="fas fa-check"></i> Credited to final catering cost</li>
+          </ul>
+          <a href="contact.html" class="btn btn-secondary" style="width:100%;justify-content:center;">Book Plan</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SECTION 6: FAQ ══ -->
+  <section class="section" aria-label="FAQ and newsletter">
+    <div class="container">
+      <div style="grid-template-columns:1fr;gap:4rem;" class="faq-newsletter-grid">
+        <div>
+          <div class="animate-on-scroll text-center">
+            <span class="section-label">FAQ</span>
+            <h2 class="section-title">Frequently Asked Questions</h2>
+          </div>
+          <div class="faq-list" style="margin-top:2rem;">
+            <div class="faq-item animate-on-scroll delay-1">
+              <div class="faq-question">Do you offer eggless or sugar-free options? <i class="fas fa-chevron-down"></i>
+              </div>
+              <div class="faq-answer">
+                <p>Yes! We offer a full range of eggless baked goods and traditional sweets, and can prepare sugar-free
+                  options using natural sweeteners like stevia.
+                </p>
+              </div>
+            </div>
+            <div class="faq-item animate-on-scroll delay-2">
+              <div class="faq-question">Can you match custom branding for corporate events? <i
+                  class="fas fa-chevron-down"></i>
+              </div>
+              <div class="faq-answer">
+                <p>Yes! For bulk sweet orders (50+ boxes), we offer custom-designed packaging with your company logo,
+                  matching ribbons, and customized greeting inserts.</p>
+              </div>
+            </div>
+            <div class="faq-item animate-on-scroll delay-3">
+              <div class="faq-question">What food safety standards do you follow? <i class="fas fa-chevron-down"></i>
+              </div>
+              <div class="faq-answer">
+                <p>All our kitchens are FSSAI certified. We maintain strict hygiene protocols, dust-free proving spaces,
+                  and daily sanitation of baking equipment.</p>
+              </div>
+            </div>
+            <div class="faq-item animate-on-scroll delay-4">
+              <div class="faq-question">Do you offer delivery and venue setup for weddings? <i
+                  class="fas fa-chevron-down"></i>
+              </div>
+              <div class="faq-answer">
+                <p>Yes. We provide temperature-controlled delivery and have a dedicated team to set up multi-tiered
+                  cakes and beautiful sweet spreads at your venue.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <section class="cta-banner" aria-label="Call to action">
+    <div class="container">
+      <span class="section-label" style="color:var(--accent);">Bakehouse Open</span>
+      <h2>Experience the Sweetness in Chennai</h2>
+      <p>Visit our sweet shop and cafe in Anna Nagar. Taste our fresh pastries, sample traditional laddoos, and speak
+        with our chefs.</p>
+      <div class="cta-actions">
+        <a href="contact.html" class="btn btn-accent btn-lg"><i class="fas fa-shopping-basket"></i> Place Custom
+          Order</a>
+        <a href="services.html" class="btn btn-ghost btn-lg"><i class="fas fa-cookie-bite"></i> Explore Our Menu</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" aria-label="Site footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="brand"
+          style="text-decoration: none; margin-bottom: 1.5rem; display: inline-flex; align-items: center;">
+          <div class="brand-logo">
+            <svg viewBox="16 26 68 54" fill="none" xmlns="http://www.w3.org/2000/svg"
+              style="width:33px; height:33px; display:block;">
+              <path d="M26 44Q28.5 44 28.5 41.5Q28.5 44 31 44Q28.5 44 28.5 46.5Q28.5 44 26 44Z" fill="#ffffff" />
+              <path d="M20 54Q22.5 54 22.5 51.5Q22.5 54 25 54Q22.5 54 22.5 56.5Q22.5 54 20 54Z" fill="#ffffff" />
+              <path d="M41 38Q43 38 43 36Q43 38 45 38Q43 38 43 40Q43 38 41 38Z" fill="#ffffff" />
+              <path d="M55 38Q57 38 57 36Q57 38 59 38Q57 38 57 40Q57 38 55 38Z" fill="#ffffff" />
+              <path d="M69 44Q71.5 44 71.5 41.5Q71.5 44 74 44Q71.5 44 71.5 46.5Q71.5 44 69 44Z" fill="#ffffff" />
+              <path d="M75 54Q77.5 54 77.5 51.5Q77.5 54 80 54Q77.5 54 77.5 56.5Q77.5 54 75 54Z" fill="#ffffff" />
+              <circle cx="37" cy="41" r="1" fill="#ffffff" />
+              <circle cx="63" cy="41" r="1" fill="#ffffff" />
+              <circle cx="32" cy="50" r="1" fill="#ffffff" />
+              <circle cx="68" cy="50" r="1" fill="#ffffff" />
+              <path d="M50 31C49 33 48.5 35 50 37.5C51.5 35 51 33 50 31Z" fill="#ffffff" />
+              <path d="M50 38C48 40.5 45.5 42 49 44.5C52.5 42 52 40.5 50 38Z" fill="#ffffff" />
+              <path d="M48 42C44.5 40 43 43.5 48.5 44.5Z" fill="#ffffff" />
+              <path d="M52 42C55.5 40 57 43.5 51.5 44.5Z" fill="#ffffff" />
+              <path d="M39 44C39 42.5 61 42.5 61 44V51.5C61 53.5 39 53.5 39 51.5Z" fill="#ffffff" fill-opacity="0.2"
+                stroke="#ffffff" stroke-width="1.8" />
+              <path d="M39 44C39 45.5 61 45.5 61 44" stroke="#ffffff" stroke-width="1.8" />
+              <path d="M39.5 48.5C42.5 51 45.5 51 48.5 48.5C51.5 51 54.5 51 57.5 48.5C59.5 50 60.5 49.5 60.5 48.5"
+                stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" fill="none" />
+              <path d="M34.5 51C34.5 49 65.5 49 65.5 51V60.5C65.5 63 34.5 63 34.5 60.5Z" fill="#ffffff"
+                fill-opacity="0.2" stroke="#ffffff" stroke-width="1.8" />
+              <path d="M34.5 51C34.5 53 65.5 53 65.5 51" stroke="#ffffff" stroke-width="1.8" />
+              <path d="M35 56.5C39 60 43.5 60 48 56.5C52.5 60 57 60 61 56.5C63.5 58.5 65 57.5 65 56.5" stroke="#ffffff"
+                stroke-width="1.8" stroke-linecap="round" fill="none" />
+              <path d="M29.5 59.5C29.5 57 70.5 57 70.5 59.5V70C70.5 73.5 29.5 73.5 29.5 70Z" fill="#ffffff"
+                fill-opacity="0.2" stroke="#ffffff" stroke-width="1.8" />
+              <path d="M29.5 59.5C29.5 62 70.5 62 70.5 59.5" stroke="#ffffff" stroke-width="1.8" />
+              <path d="M30 65C35 70 41 70 47.5 65C54 70 60 70 65 65C68 67.5 70 66.5 70 65" stroke="#ffffff"
+                stroke-width="1.8" stroke-linecap="round" fill="none" />
+              <path d="M27 72C27 70 73 70 73 72C73 74.5 27 74.5 27 72Z" fill="#ffffff" fill-opacity="0.4"
+                stroke="#ffffff" stroke-width="1.6" />
+              <path d="M25 75C25 73 75 73 75 75C75 77.5 25 77.5 25 75Z" fill="#ffffff" fill-opacity="0.6"
+                stroke="#ffffff" stroke-width="1.6" />
+            </svg>
+          </div>
+          <span class="brand-name">Sweet <span>Symphony</span></span>
+        </a>
+        <p class="footer-desc">Handcrafting traditional Indian sweets, premium baked goods, custom celebration cakes,
+          and exquisite gift boxes made fresh daily.</p>
+        <div class="social-links">
+          <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social-link" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="#" class="social-link" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4 class="footer-heading">Explore</h4>
+        <ul class="footer-links">
+          <li><a href="../index.html" class="footer-link">Home</a></li>
+          <li><a href="about.html" class="footer-link">About Us</a></li>
+          <li><a href="services.html" class="footer-link">Our Services &amp; Menu</a></li>
+          <li><a href="blog.html" class="footer-link">Bakehouse Insights</a></li>
+          <li><a href="contact.html" class="footer-link">Contact Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-heading">Our Menu</h4>
+        <ul class="footer-links">
+          <li><a href="services.html" class="footer-link">Traditional Sweets</a></li>
+          <li><a href="services.html" class="footer-link">Artisanal Bakery</a></li>
+          <li><a href="services.html" class="footer-link">Celebration Cakes</a></li>
+          <li><a href="services.html" class="footer-link">Festive Gift Boxes</a></li>
+          <li><a href="services.html" class="footer-link">Event Dessert Tables</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-heading">Contact Info</h4>
+        <ul class="footer-links">
+          <li><a href="tel:+919876543210" class="footer-link"><i class="fas fa-phone"
+                style="width:16px;color:var(--accent)"></i> +91 98765 43210</a></li>
+          <li><a href="mailto:new@sweetsymphony.in" class="footer-link"><i class="fas fa-envelope"
+                style="width:16px;color:var(--accent)"></i> new@sweetsymphony.in</a></li>
+          <li><a href="#" class="footer-link"><i class="fas fa-map-marker-alt"
+                style="width:16px;color:var(--accent)"></i> Anna Nagar, Chennai</a></li>
+          <li><a href="#" class="footer-link"><i class="fas fa-clock" style="width:16px;color:var(--accent)"></i>
+              Mon–Sun: 8AM–9PM</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Sweet Symphony. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Hygiene Certification</a>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" aria-label="Back to top"><i class="fas fa-chevron-up"></i></button>
+
+  <script src="../assets/js/main.js"></script>
+  <script>
+    function showTab(day, btn) {
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById(day).classList.add('active');
+      btn.classList.add('active');
+    }
+  </script>
+</body>
+
+</html>

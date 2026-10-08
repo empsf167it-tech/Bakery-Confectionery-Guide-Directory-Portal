@@ -1,0 +1,159 @@
+/* ============================================================
+   DARK MODE — SCALA DESIGN STUDIO
+   ============================================================ */
+
+[data-theme="dark"] {
+  --bg-primary: #17110c;
+  /* Warm espresso dark base */
+  --bg-secondary: #241a13;
+  /* Warm clay dark secondary */
+  --bg-card: #2c2119;
+  /* Slightly lighter warm card background */
+  --card-overlay: rgba(44, 33, 25, 0.95);
+  --text-primary: #fbf9f6;
+  /* Soft alabaster white */
+  --text-secondary: #d4c5b6;
+  /* Sand text */
+  --text-light: #9a8877;
+  --border: #3d2d23;
+  /* Dark warm border */
+  --primary: #f59e0b;
+  /* Sweet Honey Gold in dark mode for contrast */
+  --primary-light: #fbbf24;
+  --primary-dark: #d97706;
+  --accent: #f59e0b;
+  --accent-2: #d97706;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.6);
+  --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.7);
+  --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.8);
+  --shadow-xl: 0 30px 80px rgba(0, 0, 0, 0.9);
+}
+
+[data-theme="dark"] .header.scrolled {
+  background: rgba(18, 18, 18, 0.95);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .header.scrolled .brand-name {
+  color: #f5f5f5;
+}
+
+[data-theme="dark"] .header.scrolled .nav-link {
+  color: rgba(245, 245, 245, 0.85);
+}
+
+[data-theme="dark"] .header.scrolled .nav-link:hover,
+[data-theme="dark"] .header.scrolled .nav-link.active {
+  color: var(--accent);
+}
+
+[data-theme="dark"] .header.scrolled .nav-icon-btn {
+  background: #1e1e1e;
+  color: #f5f5f5;
+}
+
+[data-theme="dark"] .header.scrolled .hamburger {
+  background: #1e1e1e;
+}
+
+[data-theme="dark"] .header.scrolled .hamburger span {
+  background: #f5f5f5;
+}
+
+[data-theme="dark"] .feature-card,
+[data-theme="dark"] .class-card,
+[data-theme="dark"] .package-card,
+[data-theme="dark"] .testimonial-card,
+[data-theme="dark"] .blog-card,
+[data-theme="dark"] .membership-card,
+[data-theme="dark"] .faq-item,
+[data-theme="dark"] .stat-card {
+  background: #1e1e1e;
+  border-color: #2d2d2d;
+}
+
+[data-theme="dark"] .contact-item {
+  background: #1e1e1e;
+  border-color: #2d2d2d;
+}
+
+[data-theme="dark"] .form-control {
+  background: #1e1e1e;
+  border-color: #2d2d2d;
+  color: #f5f5f5;
+}
+
+[data-theme="dark"] .form-control:focus {
+  border-color: var(--primary);
+  background: #242424;
+}
+
+[data-theme="dark"] .schedule-table td {
+  background: #1e1e1e;
+  border-color: #2d2d2d;
+}
+
+[data-theme="dark"] .schedule-table tr:hover td {
+  background: rgba(245, 166, 35, 0.08);
+}
+
+[data-theme="dark"] .toast {
+  background: #1e1e1e;
+  border-color: #2d2d2d;
+}
+
+[data-theme="dark"] .social-link {
+  background: #1e1e1e;
+  border-color: #2d2d2d;
+  color: rgba(245, 245, 245, 0.7);
+}
+
+[data-theme="dark"] .map-container {
+  background: #1e1e1e;
+  border-color: #2d2d2d;
+}
+
+[data-theme="dark"] .auth-form-side {
+  background: transparent;
+}
+
+[data-theme="dark"] .membership-section {
+  background: linear-gradient(135deg, #241a13 0%, rgba(224, 131, 58, 0.05) 100%);
+}
+
+[data-theme="dark"] section:not(.hero):not(.cta-banner):not(.page-header):not(.apparatus-section) {
+  background: var(--bg-primary);
+}
+
+[data-theme="dark"] .bg-secondary-section {
+  background: var(--bg-secondary) !important;
+}
+
+[data-theme="dark"] .hero-stat {
+  background: rgba(30, 22, 16, 0.85);
+  border-color: rgba(245, 158, 11, 0.35);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .hero-stat-number {
+  color: var(--accent);
+}
+
+[data-theme="dark"] .hero-stat-label {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .brand-logo {
+  background: linear-gradient(135deg, #b45309, #f59e0b) !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+  box-shadow: 0 4px 20px rgba(245, 158, 11, 0.45) !important;
+}
+
+/* Theme toggle animation */
+.theme-toggle-icon {
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="dark"] .theme-toggle-icon {
+  transform: rotate(180deg);
+}
